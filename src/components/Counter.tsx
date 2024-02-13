@@ -9,11 +9,18 @@ import {
   Ellipsis,
   Button,
 } from "./styled/styled";
+import WebApp from '@twa-dev/sdk';
 
 export function Counter() {
   const { connected } = useTonConnect();
   const { value, address, sendIncrement } = useCounterContract();
-
+  const sendData = () => {
+    WebApp.sendData(JSON.stringify({
+      value,
+      address,
+      someDommyData: "this is sample test data"
+    }));
+  }
   return (
     <div className="Container">
       <TonConnectButton />
@@ -37,6 +44,13 @@ export function Counter() {
             }}
           >
             Increment
+          </Button>
+          <Button                        
+            onClick={() => {
+              sendData();
+            }}
+          >
+            SendData
           </Button>
         </FlexBoxCol>
       </Card>
