@@ -16,9 +16,16 @@ export function Counter() {
   const { value, address, sendIncrement } = useCounterContract();
   const sendData = () => {
     WebApp.sendData(JSON.stringify({
-      value,
-      address,
-      someDommyData: "this is sample test data"
+      dataType: 0,
+      postLink: "https://google.com"
+    }));
+  }
+
+  const sendInstaData = () => {
+    WebApp.sendData(JSON.stringify({
+      dataType: 1,
+      postLink: "https://google.com",
+      test: "asdasdasd"
     }));
   }
   return (
@@ -45,12 +52,20 @@ export function Counter() {
           >
             Increment
           </Button>
-          <Button                        
+          <Button
             onClick={() => {
               sendData();
             }}
           >
             SendData
+          </Button>
+
+          <Button
+            onClick={() => {
+              sendInstaData();
+            }}
+          >
+            Send insta Data
           </Button>
         </FlexBoxCol>
       </Card>
