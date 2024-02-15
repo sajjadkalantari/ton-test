@@ -31,8 +31,8 @@ export function Counter() {
 
 
   }
-  const q = new URLSearchParams(WebApp.initData);
-  const username = q.get("username");
+  const urlParams = new URLSearchParams(window.location.search);
+const username = urlParams.get('username');
   return (
     <div className="Container">
       <TonConnectButton />
