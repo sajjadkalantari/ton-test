@@ -1,7 +1,7 @@
 import { TonConnectButton } from "@tonconnect/ui-react";
 import { useCounterContract } from "../hooks/useCounterContract";
 import { useTonConnect } from "../hooks/useTonConnect";
-
+import axios from 'axios';
 import {
   Card,
   FlexBoxCol,
@@ -28,29 +28,33 @@ export function Counter() {
       postLink: "https://google.com",
       test: "asdasdasd"
     }));
-
-
   }
+
+
   const urlParams = new URLSearchParams(window.location.search);
-const username = urlParams.get('username');
+  const username = urlParams.get('username');
+  let initData;
+  axios.get(`http://localhost:5120/App/1/${username}`)
+    .then(function (response) {
+      // handle success
+      initData = response;
+      console.log(response);
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+    .finally(function () {
+      // always executed
+    });
+
   return (
     <div className="Container">
       <TonConnectButton />
 
       <Card>
         <FlexBoxCol>
-          <h1>username: {username}</h1>
-          <h3>     data is:
-            {WebApp.initData.toString()}
-
-            ----------------
-            {WebApp.initDataUnsafe.start_param}
-            {WebApp.initDataUnsafe.user?.username}
-            #####
-            {window.location.href}
-            
-            </h3>
-            <Card><h3>{new URLSearchParams(window.location.href).get('username')}</h3></Card>
+          <h1>data: {initData}</h1>
           <FlexBoxRow>
             <b>Address</b>
             <Ellipsis>{address}</Ellipsis>
