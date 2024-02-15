@@ -39,7 +39,8 @@ export function Counter() {
             {WebApp.initData.toString()}
 
             ----------------
-            {WebApp.initDataUnsafe.toString()}
+            {WebApp.initDataUnsafe.start_param}
+            {WebApp.initDataUnsafe.query_id}
                   
             </h3>
           <FlexBoxRow>
