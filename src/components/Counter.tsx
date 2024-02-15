@@ -14,6 +14,7 @@ import WebApp from '@twa-dev/sdk';
 export function Counter() {
   const { connected } = useTonConnect();
   const { value, address, sendIncrement } = useCounterContract();
+
   const sendData = () => {
     WebApp.sendData(JSON.stringify({
       dataType: 0,
@@ -34,6 +35,9 @@ export function Counter() {
 
       <Card>
         <FlexBoxCol>
+          <p>
+            {WebApp.initData}
+          </p>
           <h3>Counter</h3>
           <FlexBoxRow>
             <b>Address</b>

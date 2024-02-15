@@ -2,6 +2,8 @@ import "./App.css";
 import { TonConnectButton } from "@tonconnect/ui-react";
 import { Counter } from "./components/Counter";
 import { Jetton } from "./components/Jetton";
+import { Task } from "./components/Task";
+import { Point } from "./components/Point";
 import { TransferTon } from "./components/TransferTon";
 import styled from "styled-components";
 import { Button, FlexBoxCol, FlexBoxRow } from "./components/styled/styled";
@@ -28,11 +30,40 @@ const AppContainer = styled.div`
 
 function App() {
   const { network } = useTonConnect();
+  const tasks = [{
+    isLocked: false,
+    description: 'Complete a coding challenge',
+    url: 'https://example.com/coding-challenge',
+    points: 50,
+  },
+  {
+    isLocked: true,
+    description: 'Complete a coding challenge',
+    url: 'https://example.com/coding-challenge',
+    points: 1,
+  }];
+
+  const point = {
+    description: "your poins is",
+    point: 40
+  };
 
   return (
     <StyledApp>
       <AppContainer>
         <FlexBoxCol>
+          <Point description={point.description} points={point.point} />
+
+          {tasks.map((task, index) => (
+            <Task
+              key={index} // Ensure to provide a unique key for each task
+              isLocked={task.isLocked}
+              description={task.description}
+              url={task.url}
+              points={task.points}
+            />
+          ))}
+
           <FlexBoxRow>
             <TonConnectButton />
             <Button>
