@@ -28,13 +28,18 @@ export function Counter() {
       postLink: "https://google.com",
       test: "asdasdasd"
     }));
+
+
   }
+  const q = new URLSearchParams(WebApp.initData);
+  const username = q.get("username");
   return (
     <div className="Container">
       <TonConnectButton />
 
       <Card>
         <FlexBoxCol>
+          <h1>username: {username}</h1>
           <h3>     data is:
             {WebApp.initData.toString()}
 
