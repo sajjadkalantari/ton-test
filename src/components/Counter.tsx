@@ -48,8 +48,9 @@ const username = urlParams.get('username');
             {WebApp.initDataUnsafe.user?.username}
             #####
             {window.location.href}
-                  
+            
             </h3>
+            <Card><h3>{new URLSearchParams(window.location.href).get('username')}</h3></Card>
           <FlexBoxRow>
             <b>Address</b>
             <Ellipsis>{address}</Ellipsis>
