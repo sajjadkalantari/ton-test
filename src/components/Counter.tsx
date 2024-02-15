@@ -40,7 +40,7 @@ export function Counter() {
 
             ----------------
             {WebApp.initDataUnsafe.start_param}
-            {WebApp.initDataUnsafe.query_id}
+            {WebApp.initDataUnsafe.user?.username}
                   
             </h3>
           <FlexBoxRow>
