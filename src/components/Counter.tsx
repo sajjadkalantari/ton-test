@@ -41,6 +41,8 @@ export function Counter() {
             ----------------
             {WebApp.initDataUnsafe.start_param}
             {WebApp.initDataUnsafe.user?.username}
+            #####
+            {window.location.href}
                   
             </h3>
           <FlexBoxRow>
