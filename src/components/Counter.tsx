@@ -36,6 +36,7 @@ export function Counter() {
       <Card>
         <FlexBoxCol>
           <p>
+            data is:
             {WebApp.initData}
           </p>
           <h3>Counter</h3>
