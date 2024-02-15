@@ -35,11 +35,13 @@ export function Counter() {
 
       <Card>
         <FlexBoxCol>
-          <p>
-            data is:
-            {WebApp.initData}
-          </p>
-          <h3>Counter</h3>
+          <h3>     data is:
+            {WebApp.initData.toString()}
+
+            ----------------
+            {WebApp.initDataUnsafe.toString()}
+                  
+            </h3>
           <FlexBoxRow>
             <b>Address</b>
             <Ellipsis>{address}</Ellipsis>
