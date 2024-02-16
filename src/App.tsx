@@ -2,7 +2,7 @@ import "./App.css";
 import { TonConnectButton } from "@tonconnect/ui-react";
 import { Counter } from "./components/Counter";
 import { Jetton } from "./components/Jetton";
-import { Task } from "./components/Task";
+import { Task, TaskProps } from "./components/Task";
 import { Point } from "./components/Point";
 import { TransferTon } from "./components/TransferTon";
 import styled from "styled-components";
@@ -10,6 +10,9 @@ import { Button, FlexBoxCol, FlexBoxRow } from "./components/styled/styled";
 import { useTonConnect } from "./hooks/useTonConnect";
 import { CHAIN } from "@tonconnect/protocol";
 import "@twa-dev/sdk";
+import { useState } from "react";
+import axios from "axios";
+import { useAsyncInitialize } from "./hooks/useAsyncInitialize";
 
 const StyledApp = styled.div`
   background-color: #e8e8e8;
@@ -30,39 +33,49 @@ const AppContainer = styled.div`
 
 function App() {
   const { network } = useTonConnect();
-  const tasks = [{
-    isLocked: false,
-    description: 'Complete a coding challenge',
-    url: 'https://example.com/coding-challenge',
-    points: 50,
-  },
-  {
-    isLocked: true,
-    description: 'Complete a coding challenge',
-    url: 'https://example.com/coding-challenge',
-    points: 1,
-  }];
+
+
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const [username, setUsername] = useState<string | null>(urlParams.get('username'));
+  const [initData, setInitData] = useState<any>();
+
+
+  const res = useAsyncInitialize(async () => {
+    const response = await axios.get(`http://localhost:5120/App/1/${username}`);
+    setInitData(response.data);
+    console.log(response.data);
+    return response;
+  }, [username]);
+
+  const tasks = initData?.actions as TaskProps[] ?? [];
 
   const point = {
-    description: "your poins is",
-    point: 40
+    description: "your poins is"
   };
 
   return (
     <StyledApp>
       <AppContainer>
         <FlexBoxCol>
-          <Point description={point.description} points={point.point} />
 
-          {tasks.map((task, index) => (
-            <Task
-              key={index} // Ensure to provide a unique key for each task
-              isLocked={task.isLocked}
-              description={task.description}
-              url={task.url}
-              points={task.points}
-            />
-          ))}
+          <h1>username" {username}</h1>
+          <h1>data" {initData?.user.points}</h1>
+
+          <Point description={point.description} points={initData?.user.points ?? 0} />
+          {
+            tasks.map((task, index) => (
+              <Task
+                key={index} // Ensure to provide a unique key for each task
+                id={task.id}
+                isLocked={initData?.user.userActions.some((item: { actionId: number }) => item.actionId === task.id) ? false : true}
+                description={task.description}
+                point={task.point}
+                title={task.title}
+              />
+            ))
+          }
+     
 
           <FlexBoxRow>
             <TonConnectButton />

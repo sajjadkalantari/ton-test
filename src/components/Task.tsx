@@ -11,11 +11,12 @@ import styled from 'styled-components';
 import { faLock, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-interface TaskProps {
+export interface TaskProps {
+  id: number;
   isLocked: boolean;
+  title: string;
   description: string;
-  url: string;
-  points: number;
+  point: number;
 }
 
 const TaskContainer = styled.div`
@@ -31,16 +32,10 @@ const TaskIcon = styled.div`
   text-align: center;
 `;
 
-const DescriptionColumn = styled.div`
+const TextColumn = styled.div`
   flex: 4;
   padding: 0 10px;
-`;
-
-const UrlLink = styled.a`
-  flex: 4;
-  padding: 0 10px;
-  color: #007bff;
-  text-decoration: none;
+  text-align: center;
 `;
 
 const BadgeColumn = styled.div`
@@ -53,28 +48,33 @@ const Badge = styled.div`
   color: #fff;
   padding: 5px;
   border-radius: 5px;
+  margin-top: 10px; /* Adjust as needed */
 `;
-export function Task({ isLocked, description, url, points }: TaskProps) {
+
+export function Task({ isLocked, title, description, point, id }: TaskProps) {
   const lockIconColor = isLocked ? 'gray' : 'green';
   const lockIcon = isLocked ? faLock : faCheck;
 
   return (
     <Card>
-    <TaskContainer>
-      <TaskIcon>
-        <FontAwesomeIcon icon={lockIcon} color={lockIconColor} />
-      </TaskIcon>
-      <DescriptionColumn>
-        <p>{description}</p>
-      </DescriptionColumn>
-      <UrlLink href={url} target="_blank" rel="noopener noreferrer">
-        {url}
-      </UrlLink>
-      <BadgeColumn>
-        <Badge>{points}</Badge>
-      </BadgeColumn>
-    </TaskContainer>
-
+      <TaskContainer onClick={async () => {
+            WebApp.sendData({
+              actionId: id
+            });
+            
+            window.open("https://twitter.com/", '_blank');
+          }}>
+        <TaskIcon>
+          <FontAwesomeIcon icon={lockIcon} color={lockIconColor} />
+        </TaskIcon>
+        <TextColumn>
+          <p style={{ fontWeight: 'bold', fontSize: 'larger' }}>{title}</p>
+          <p>{description}</p>
+        </TextColumn>
+        <BadgeColumn>
+          <Badge>{point}</Badge>
+        </BadgeColumn>
+      </TaskContainer>
     </Card>
   );
 }

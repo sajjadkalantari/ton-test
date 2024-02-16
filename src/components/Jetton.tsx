@@ -14,28 +14,10 @@ export function Jetton() {
   const { connected } = useTonConnect();
   const { mint, jettonWalletAddress, balance } = useFaucetJettonContract();
 
-  const [initData, setInitData] = useState<any>();
-  const urlParams = new URLSearchParams(window.location.search);
-  const [username, setUsername] = useState<string | null>(urlParams.get('username'));
-
-  axios.get(`http://localhost:5120/App/1/${username}`)
-    .then(function (response) {
-      // handle success
-      setInitData(response.data)      
-      console.log(response);
-    })
-    .catch(function (error) {
-      // handle error
-      console.log(error);
-    })
-    .finally(function () {
-      // always executed
-    });
+  
   return (
     <Card title="Jetton">
       <FlexBoxCol>
-        <h1>username: {username}</h1>
-        <h1>data: {initData}</h1>
         <h3>Faucet Jetton</h3>
         <FlexBoxRow>
           Wallet
