@@ -15,10 +15,8 @@ export function Jetton() {
   const { mint, jettonWalletAddress, balance } = useFaucetJettonContract();
 
   const [initData, setInitData] = useState<any>();
-  const [username, setUsername] = useState<string | null>();
-
   const urlParams = new URLSearchParams(window.location.search);
-  setUsername(urlParams.get('username'));
+  const [username, setUsername] = useState<string | null>(urlParams.get('username'));
 
   axios.get(`http://localhost:5120/App/1/${username}`)
     .then(function (response) {
