@@ -50,19 +50,13 @@ function App() {
 
   const tasks = initData?.actions as TaskProps[] ?? [];
 
-  const point = {
-    description: "your poins is"
-  };
+  const pointMessage = `${username} your point is`; 
 
   return (
     <StyledApp>
       <AppContainer>
         <FlexBoxCol>
-
-          <h1>username" {username}</h1>
-          <h1>data" {initData?.user.points}</h1>
-
-          <Point description={point.description} points={initData?.user.points ?? 0} />
+          <Point description={pointMessage} points={initData?.user.points ?? 0} />
           {
             tasks.map((task, index) => (
               <Task
