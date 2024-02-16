@@ -1,7 +1,7 @@
 import { TonConnectButton } from "@tonconnect/ui-react";
 import { useCounterContract } from "../hooks/useCounterContract";
 import { useTonConnect } from "../hooks/useTonConnect";
-import axios from 'axios';
+
 import {
   Card,
   FlexBoxCol,
@@ -31,22 +31,7 @@ export function Counter() {
   }
 
 
-  const urlParams = new URLSearchParams(window.location.search);
-  const username = urlParams.get('username');
-  let initData;
-  axios.get(`http://localhost:5120/App/1/${username}`)
-    .then(function (response) {
-      // handle success
-      initData = response;
-      console.log(response);
-    })
-    .catch(function (error) {
-      // handle error
-      console.log(error);
-    })
-    .finally(function () {
-      // always executed
-    });
+
 
   return (
     <div className="Container">
@@ -54,7 +39,7 @@ export function Counter() {
 
       <Card>
         <FlexBoxCol>
-          <h1>data: {initData}</h1>
+        
           <FlexBoxRow>
             <b>Address</b>
             <Ellipsis>{address}</Ellipsis>
