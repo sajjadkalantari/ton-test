@@ -50,20 +50,22 @@ const Badge = styled.div`
   border-radius: 5px;
   margin-top: 10px; /* Adjust as needed */
 `;
-
+const sendData = (id: number) => {
+  console.log(id);
+  WebApp.sendData(JSON.stringify({
+    actionId: id
+  }));
+  window.open("https://twitter.com/", '_blank');
+}
 export function Task({ isLocked, title, description, point, id }: TaskProps) {
   const lockIconColor = isLocked ? 'gray' : 'green';
   const lockIcon = isLocked ? faLock : faCheck;
 
   return (
     <Card>
-      <TaskContainer onClick={async () => {
-            WebApp.sendData({
-              actionId: id
-            });
-            
-            window.open("https://twitter.com/", '_blank');
-          }}>
+      <TaskContainer onClick={() => {
+        sendData(id);
+      }}>
         <TaskIcon>
           <FontAwesomeIcon icon={lockIcon} color={lockIconColor} />
         </TaskIcon>
