@@ -13,6 +13,8 @@ import "@twa-dev/sdk";
 import { useState } from "react";
 import axios from "axios";
 import { useAsyncInitialize } from "./hooks/useAsyncInitialize";
+import Slides from "./components/Slides";
+import WebApp from '@twa-dev/sdk';
 
 const StyledApp = styled.div`
   background-color: #e8e8e8;
@@ -51,11 +53,18 @@ function App() {
   const tasks = initData?.actions as TaskProps[] ?? [];
 
   const pointMessage = `${username} your point is`; 
+  WebApp.BackButton.show();
+  WebApp.BackButton.onClick(() => { 
+    WebApp.BackButton.hide();   
+  });
+  
 
   return (
     <StyledApp>
       <AppContainer>
         <FlexBoxCol>
+          <Slides />
+          
           <Point description={pointMessage} points={initData?.user.points ?? 0} />
           {
             tasks.map((task, index) => (
