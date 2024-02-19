@@ -17,6 +17,8 @@ export interface TaskProps {
   title: string;
   description: string;
   point: number;
+  type: number;
+  redirectionLink: string | null
 }
 
 const TaskContainer = styled.div`
@@ -50,21 +52,21 @@ const Badge = styled.div`
   border-radius: 5px;
   margin-top: 10px; /* Adjust as needed */
 `;
-const sendData = (id: number) => {
+const sendData = (id: number, link: string | null) => {
   console.log(id);
   WebApp.sendData(JSON.stringify({
     actionId: id
   }));
-  window.open("https://twitter.com/", '_blank');
+  if (link) window.open(link, '_blank');
 }
-export function Task({ isLocked, title, description, point, id }: TaskProps) {
+export function Task({ isLocked, title, description, point, id, type, redirectionLink }: TaskProps) {
   const lockIconColor = isLocked ? 'gray' : 'green';
   const lockIcon = isLocked ? faLock : faCheck;
 
   return (
     <Card>
       <TaskContainer onClick={() => {
-        sendData(id);
+        sendData(id, redirectionLink);
       }}>
         <TaskIcon>
           <FontAwesomeIcon icon={lockIcon} color={lockIconColor} />

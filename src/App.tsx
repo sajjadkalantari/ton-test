@@ -52,24 +52,26 @@ function App() {
 
   const tasks = initData?.actions as TaskProps[] ?? [];
 
-  const pointMessage = `${username} your point is`; 
+  const pointMessage = `${username} your point is`;
   WebApp.BackButton.show();
-  WebApp.BackButton.onClick(() => { 
-    WebApp.BackButton.hide();   
+  WebApp.BackButton.onClick(() => {
+    WebApp.BackButton.hide();
   });
-  
+
 
   return (
     <StyledApp>
       <AppContainer>
         <FlexBoxCol>
           <Slides />
-          
+
           <Point description={pointMessage} points={initData?.user.points ?? 0} />
           {
             tasks.map((task, index) => (
               <Task
-                key={index} // Ensure to provide a unique key for each task
+                key={index}
+                redirectionLink={task.redirectionLink}
+                type={task.type}
                 id={task.id}
                 isLocked={initData?.user.userActions.some((item: { actionId: number }) => item.actionId === task.id) ? false : true}
                 description={task.description}
@@ -78,7 +80,7 @@ function App() {
               />
             ))
           }
-     
+
 
           <FlexBoxRow>
             <TonConnectButton />
