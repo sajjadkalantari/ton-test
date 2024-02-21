@@ -15,7 +15,7 @@ import axios from "axios";
 import { useAsyncInitialize } from "./hooks/useAsyncInitialize";
 import Slides from "./components/Slides";
 import WebApp from '@twa-dev/sdk';
-import { BrowserRouter as Router, Route, Link, Routes, useNavigate, useParams } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Routes, useNavigate } from 'react-router-dom';
 
 const StyledApp = styled.div`
   background-color: #e8e8e8;
@@ -35,9 +35,10 @@ const AppContainer = styled.div`
 `;
 
 function Home() {
-  const { username } = useParams();
 
   const { network } = useTonConnect();
+  const urlParams = new URLSearchParams(window.location.search);
+  const [username, setUsername] = useState<string | null>(urlParams.get('username'));
   const [initData, setInitData] = useState<any>();
 
   const res = useAsyncInitialize(async () => {

@@ -6,8 +6,9 @@ function App() {
   return (
     <HashRouter>
       <Routes>
-        <Route path="/:username" element={<Home />} />
+
         <Route path="/story/:id" element={<Slides />} />
+        <Route path="/*" element={<Home />} />
       </Routes>
     </HashRouter>
 
