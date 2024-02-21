@@ -1,16 +1,15 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, HashRouter  } from 'react-router-dom';
 import Home from "./Home";
-import Slides from "./components/Slides";
 
 function App() {
   return (
     
-    <Router>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<Home />} />
         {/* <Route path="/story/:id" element={<Slides />} /> */}
       </Routes>
-    </Router>
+    </HashRouter>
 
   );
 }
