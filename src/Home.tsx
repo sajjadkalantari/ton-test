@@ -36,9 +36,6 @@ const AppContainer = styled.div`
 
 function Home() {
   const { network } = useTonConnect();
-
-
-
   const urlParams = new URLSearchParams(window.location.search);
   const [username, setUsername] = useState<string | null>(urlParams.get('username'));
   const [initData, setInitData] = useState<any>();
