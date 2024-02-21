@@ -77,9 +77,9 @@ export function Task({ isLocked, title, description, point, id, type, redirectio
         WebApp.openLink(redirectionLink);
       if (redirectionLink) WebApp.openLink(redirectionLink, { try_instant_view: true });
     } else if (type === ActionType.ReadContentCompletely) {
-      WebApp.sendData(JSON.stringify({
-        actionId: id
-      }));
+      // WebApp.sendData(JSON.stringify({
+      //   actionId: id
+      // }));
       navigate(`/story/${id}`);
     }
 
