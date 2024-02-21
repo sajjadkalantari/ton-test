@@ -4,13 +4,13 @@ import Slides from "./components/Slides";
 
 function App() {
   return (
-    <Home />
-    // <Router>
-    //   <Routes>
-    //     <Route path="/" element={<Home />} />
-    //     {/* <Route path="/story/:id" element={<Slides />} /> */}
-    //   </Routes>
-    // </Router>
+    
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        {/* <Route path="/story/:id" element={<Slides />} /> */}
+      </Routes>
+    </Router>
 
   );
 }
