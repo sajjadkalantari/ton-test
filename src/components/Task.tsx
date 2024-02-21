@@ -10,6 +10,15 @@ import WebApp from '@twa-dev/sdk';
 import styled from 'styled-components';
 import { faLock, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useNavigate } from 'react-router-dom';
+
+enum ActionType {
+  None = 0,
+  ConnectBlockchainWallet = 1,
+  FollowOnSocialMedia = 2,
+  ShareSocialMediaPost = 3,
+  ReadContentCompletely = 4
+}
 
 export interface TaskProps {
   id: number;
@@ -17,7 +26,7 @@ export interface TaskProps {
   title: string;
   description: string;
   point: number;
-  type: number;
+  type: ActionType;
   redirectionLink: string | null
 }
 
@@ -52,21 +61,35 @@ const Badge = styled.div`
   border-radius: 5px;
   margin-top: 10px; /* Adjust as needed */
 `;
-const sendData = (id: number, link: string | null) => {
-  console.log(id);
-  WebApp.sendData(JSON.stringify({
-    actionId: id
-  }));
-  if (link) window.open(link, '_blank');
-}
+
 export function Task({ isLocked, title, description, point, id, type, redirectionLink }: TaskProps) {
+  const navigate = useNavigate();
   const lockIconColor = isLocked ? 'gray' : 'green';
   const lockIcon = isLocked ? faLock : faCheck;
+
+  const doTheAction = () => {
+
+    if (type === ActionType.FollowOnSocialMedia) {
+      WebApp.sendData(JSON.stringify({
+        actionId: id
+      }));
+      if (redirectionLink)
+        WebApp.openLink(redirectionLink);
+      if (redirectionLink) WebApp.openLink(redirectionLink, { try_instant_view: true });
+    } else if (type === ActionType.ReadContentCompletely) {
+      WebApp.sendData(JSON.stringify({
+        actionId: id
+      }));
+      navigate(`/story/${id}`);
+    }
+
+
+  }
 
   return (
     <Card>
       <TaskContainer onClick={() => {
-        sendData(id, redirectionLink);
+        doTheAction();
       }}>
         <TaskIcon>
           <FontAwesomeIcon icon={lockIcon} color={lockIconColor} />
