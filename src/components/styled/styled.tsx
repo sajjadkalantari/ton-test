@@ -42,7 +42,7 @@ export const Ellipsis = styled.div`
 `;
 
 export const Input = styled("input")`
-  padding: 10px 20px;
+  padding: 10px 0px 10px 2px;
   border-radius: 10px;
   width: 100%;
   border: 1px solid #c2c2c2;
@@ -68,4 +68,27 @@ export const StyledApp = styled.div`
 export const AppContainer = styled.div`
   max-width: 900px;
   margin: 0 auto;
+`;
+
+
+export const ModalWrapper = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: ${(props: { isOpen: boolean }) => (props.isOpen ? 'visible' : 'hidden')};
+  opacity: ${(props) => (props.isOpen ? 1 : 0)};
+  transition: visibility 0s, opacity 0.3s ease;
+`;
+
+export const ModalContent = styled.div`
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
 `;

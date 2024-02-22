@@ -16,6 +16,7 @@ import { useAsyncInitialize } from "./hooks/useAsyncInitialize";
 import Slides from "./components/Slides";
 import WebApp from '@twa-dev/sdk';
 import { BrowserRouter as Router, Route, Link, Routes, useNavigate } from 'react-router-dom';
+import Modal from "./components/Modal/Modal";
 
 const StyledApp = styled.div`
   background-color: #e8e8e8;
@@ -36,10 +37,37 @@ const AppContainer = styled.div`
 
 function Home() {
 
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
+  const handleSubmit = (text: any) => {
+    //send the user input to the bot
+    // Handle the submitted text
+    if (selectedTaskId) {
+      console.log("selectedTaskId", selectedTaskId);
+
+      WebApp.sendData(JSON.stringify({
+        actionId: selectedTaskId,
+        sharedLink: text
+      }));
+    }
+    console.log('Submitted text:', text);
+  };
+
+
+
   const { network } = useTonConnect();
   const urlParams = new URLSearchParams(window.location.search);
   const [username, setUsername] = useState<string | null>(urlParams.get('username'));
   const [initData, setInitData] = useState<any>();
+  const [selectedTaskId, setSelectedTaskId] = useState<any>();
 
   const res = useAsyncInitialize(async () => {
     const response = await axios.get(`http://localhost:5120/App/1/${username}`);
@@ -57,7 +85,9 @@ function Home() {
     <StyledApp>
       <AppContainer>
         <FlexBoxCol>
-          {/* <button onClick={goToHomePage}>About</button> */}       
+
+          <Modal isOpen={isModalOpen} onClose={closeModal} onSubmit={handleSubmit} />
+
           <Point description={pointMessage} points={initData?.user.points ?? 0} />
           {
             tasks.map((task, index) => (
@@ -70,6 +100,8 @@ function Home() {
                 description={task.description}
                 point={task.point}
                 title={task.title}
+                openModal={openModal}
+                setSelectedTaskId={setSelectedTaskId}
               />
             ))
           }

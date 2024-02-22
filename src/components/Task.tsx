@@ -10,7 +10,7 @@ import WebApp from '@twa-dev/sdk';
 import styled from 'styled-components';
 import { faLock, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useNavigate } from 'react-router-dom';
+import { FetcherSubmitFunction, useNavigate } from 'react-router-dom';
 
 enum ActionType {
   None = 0,
@@ -27,7 +27,9 @@ export interface TaskProps {
   description: string;
   point: number;
   type: ActionType;
-  redirectionLink: string | null
+  redirectionLink: string | null,
+  openModal: Function,
+  setSelectedTaskId: Function,
 }
 
 const TaskContainer = styled.div`
@@ -62,13 +64,13 @@ const Badge = styled.div`
   margin-top: 10px; /* Adjust as needed */
 `;
 
-export function Task({ isLocked, title, description, point, id, type, redirectionLink }: TaskProps) {
+export function Task({ isLocked, title, description, point, id, type, redirectionLink, openModal, setSelectedTaskId }: TaskProps) {
   const navigate = useNavigate();
   const lockIconColor = isLocked ? 'gray' : 'green';
   const lockIcon = isLocked ? faLock : faCheck;
 
   const doTheAction = () => {
-
+    setSelectedTaskId(id);
     if (type === ActionType.FollowOnSocialMedia) {
       WebApp.sendData(JSON.stringify({
         actionId: id
@@ -81,6 +83,11 @@ export function Task({ isLocked, title, description, point, id, type, redirectio
       //   actionId: id
       // }));
       navigate(`/story/${id}`);
+    } else if (type === ActionType.ShareSocialMediaPost) {
+      // WebApp.sendData(JSON.stringify({
+      //   actionId: id
+      // }));
+      openModal();
     }
 
 
