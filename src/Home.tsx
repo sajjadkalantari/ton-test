@@ -17,6 +17,7 @@ import Slides from "./components/Slides";
 import WebApp from '@twa-dev/sdk';
 import { BrowserRouter as Router, Route, Link, Routes, useNavigate } from 'react-router-dom';
 import Modal from "./components/Modal/Modal";
+import { getAppUserData, postUserAction, setAuthToken } from "./api";
 
 const StyledApp = styled.div`
   background-color: #e8e8e8;
@@ -47,37 +48,34 @@ function Home() {
     setModalOpen(false);
   };
 
-  const handleSubmit = (text: any) => {
-    //send the user input to the bot
-    // Handle the submitted text
+  const handleSubmit = async (text: any) => {
     if (selectedTaskId) {
-      console.log("selectedTaskId", selectedTaskId);
-
-      WebApp.sendData(JSON.stringify({
-        actionId: selectedTaskId,
-        sharedLink: text
-      }));
+      await postUserAction(selectedTaskId, {
+        data: text
+      });
+      
+      window.location.reload();
     }
-    console.log('Submitted text:', text);
   };
-
-
 
   const { network } = useTonConnect();
   const urlParams = new URLSearchParams(window.location.search);
-  const [username, setUsername] = useState<string | null>(urlParams.get('username'));
+  const [token, setUsername] = useState<string | null>(urlParams.get('token'));
   const [initData, setInitData] = useState<any>();
   const [selectedTaskId, setSelectedTaskId] = useState<any>();
 
-  const res = useAsyncInitialize(async () => {
-    const response = await axios.get(`http://localhost:5120/App/1/${username}`);
-    setInitData(response.data);
-    console.log(response.data);
+  console.log(token)
+  if (token)
+    setAuthToken(token);
+
+  useAsyncInitialize(async () => {
+    const response = await getAppUserData(1);
+    setInitData(response);
     return response;
-  }, [username]);
+  }, []);
 
   const tasks = initData?.actions as TaskProps[] ?? [];
-
+  const username = initData?.user.username;
   const pointMessage = `${username} your point is`;
 
 

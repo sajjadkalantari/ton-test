@@ -11,6 +11,7 @@ import styled from 'styled-components';
 import { faLock, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FetcherSubmitFunction, useNavigate } from 'react-router-dom';
+import { postUserAction } from "../api";
 
 enum ActionType {
   None = 0,
@@ -69,28 +70,25 @@ export function Task({ isLocked, title, description, point, id, type, redirectio
   const lockIconColor = isLocked ? 'gray' : 'green';
   const lockIcon = isLocked ? faLock : faCheck;
 
-  const doTheAction = () => {
+  const doTheAction = async () => {
     setSelectedTaskId(id);
     if (type === ActionType.FollowOnSocialMedia) {
-      WebApp.sendData(JSON.stringify({
-        actionId: id
-      }));
-      if (redirectionLink)
-        WebApp.openLink(redirectionLink);
-      if (redirectionLink) WebApp.openLink(redirectionLink, { try_instant_view: true });
+
+      await postUserAction(id, { data: "" });
+
+      if (redirectionLink) {
+        WebApp.openLink(redirectionLink, { try_instant_view: true });
+        window.location.reload();
+      }
+
     } else if (type === ActionType.ReadContentCompletely) {
-      // WebApp.sendData(JSON.stringify({
-      //   actionId: id
-      // }));
       navigate(`/story/${id}`);
     } else if (type === ActionType.ShareSocialMediaPost) {
-      // WebApp.sendData(JSON.stringify({
-      //   actionId: id
-      // }));
-      openModal();
+      if (redirectionLink) {
+        openModal();
+        WebApp.openLink(redirectionLink, { try_instant_view: true });
+      }
     }
-
-
   }
 
   return (

@@ -13,6 +13,7 @@ import { Pagination, Navigation } from 'swiper/modules';
 import { AppContainer, Button, StyledApp } from './styled/styled';
 import WebApp from '@twa-dev/sdk';
 import { useAsyncInitialize } from '../hooks/useAsyncInitialize';
+import { getAction, postUserAction } from '../api';
 
 export default function Slides() {
 
@@ -23,17 +24,16 @@ export default function Slides() {
 
   const navigate = useNavigate();
   WebApp.BackButton.show();
-  WebApp.BackButton.onClick(() => {
-
+  WebApp.BackButton.onClick(async () => {
     WebApp.BackButton.hide();
     navigate(-1);
   });
 
 
   const res = useAsyncInitialize(async () => {
-    const response = await axios.get(`http://localhost:5120/App/actions/${id}`);
-    setData(response.data);
-    return response.data;
+    const response = await getAction(Number(id));
+    setData(response);
+    return response;
   }, [id]);
   const totalSlides = res?.actionFiles.length;
 
@@ -63,7 +63,8 @@ export default function Slides() {
                     <p className="card-text">{item.description}</p>
                   </div>
                   {index === totalSlides - 1 && (
-                    <Button onClick={() => {
+                    <Button onClick={async () => {
+                      await postUserAction(Number(id), { data: "" });
                       navigate(-1);
                     }}>NEXT</Button>
                   )}
