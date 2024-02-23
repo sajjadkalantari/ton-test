@@ -92,3 +92,50 @@ export const ModalContent = styled.div`
   border-radius: 8px;
   text-align: center;
 `;
+
+
+export const PointContainer = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #d2f5d3;
+  border-radius: 5px;
+`;
+
+export const DescriptionColumn = styled.div`
+  flex: 4;
+  padding: 0 10px;
+`;
+
+export const TaskContainer = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+`;
+
+export const TaskIcon = styled.div`
+  flex: 1;
+  text-align: center;
+`;
+
+export const TextColumn = styled.div`
+  flex: 4;
+  padding: 0 10px;
+  text-align: center;
+`;
+
+export const BadgeColumn = styled.div`
+  flex: 1;
+  text-align: center;
+`;
+
+export const Badge = styled.div`
+  background-color: #007bff;
+  color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+  margin-top: 10px; /* Adjust as needed */
+`;

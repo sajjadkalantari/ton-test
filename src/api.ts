@@ -1,12 +1,8 @@
 import axios from 'axios';
 
-// Define your API base URL here
 const API_BASE_URL = 'http://localhost:5120';
-
-// Setup Axios instance
 const api = axios.create({
     baseURL: API_BASE_URL,
-    // You can add more default settings here
 });
 
 export const setAuthToken = (token: string) => {

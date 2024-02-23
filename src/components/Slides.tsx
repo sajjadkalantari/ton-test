@@ -1,14 +1,9 @@
-import React, { useRef, useState } from 'react';
-import axios from "axios";
-// Import Swiper React components
+import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-
 import { useNavigate, useParams } from 'react-router-dom';
-// import required modules
 import { Pagination, Navigation } from 'swiper/modules';
 import { AppContainer, Button, StyledApp } from './styled/styled';
 import WebApp from '@twa-dev/sdk';
@@ -18,9 +13,6 @@ import { getAction, postUserAction } from '../api';
 export default function Slides() {
 
   const { id } = useParams();
-
-  const [data, setData] = useState<any>();
-
 
   const navigate = useNavigate();
   WebApp.BackButton.show();
@@ -32,7 +24,6 @@ export default function Slides() {
 
   const res = useAsyncInitialize(async () => {
     const response = await getAction(Number(id));
-    setData(response);
     return response;
   }, [id]);
   const totalSlides = res?.actionFiles.length;
