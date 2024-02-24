@@ -4,6 +4,9 @@ import { faLock, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
 import { postUserAction } from "../api";
+import { TonConnectButton } from "@tonconnect/ui-react";
+import { useEffect } from "react";
+import { useTonConnect } from "../hooks/useTonConnect";
 
 enum ActionType {
   None = 0,
@@ -31,6 +34,14 @@ export function Task({ isLocked, title, description, point, id, type, redirectio
   const navigate = useNavigate();
   const lockIconColor = isLocked ? 'gray' : 'green';
   const lockIcon = isLocked ? faLock : faCheck;
+  const { connected, wallet } = useTonConnect();
+  let sentWalletAction = false;
+  useEffect(() => {
+    if (connected && !sentWalletAction) {
+      postUserAction(id, { data: wallet });
+      sentWalletAction = true;      
+    }
+  }, [connected, wallet]);
 
   const doTheAction = async () => {
     setSelectedTaskId(id);
@@ -47,6 +58,7 @@ export function Task({ isLocked, title, description, point, id, type, redirectio
         openModal();
         WebApp.openLink(redirectionLink, { try_instant_view: true });
       }
+    } else if (type === ActionType.ConnectBlockchainWallet) {
     }
   }
 
@@ -61,7 +73,11 @@ export function Task({ isLocked, title, description, point, id, type, redirectio
         <TextColumn>
           <p style={{ fontWeight: 'bold', fontSize: 'larger' }}>{title}</p>
           <p>{description}</p>
+
+          {type === ActionType.ConnectBlockchainWallet && (<TonConnectButton style={{ margin: "16px" }} />)}
+
         </TextColumn>
+
         <BadgeColumn>
           <Badge>{point}</Badge>
         </BadgeColumn>

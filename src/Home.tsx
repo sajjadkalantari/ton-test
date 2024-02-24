@@ -83,7 +83,7 @@ function Home() {
           }
 
 
-          {/* <FlexBoxRow>
+          {/* {<FlexBoxRow>
             <TonConnectButton />
             <Button>
               {network
@@ -95,7 +95,8 @@ function Home() {
           </FlexBoxRow>
           <Counter />
           <TransferTon />
-          <Jetton /> */}
+          <Jetton /> 
+          } */}
         </FlexBoxCol>
       </AppContainer>
     </StyledApp>

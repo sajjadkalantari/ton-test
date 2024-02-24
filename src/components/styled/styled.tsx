@@ -125,17 +125,26 @@ export const TextColumn = styled.div`
   flex: 4;
   padding: 0 10px;
   text-align: center;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  display: flex;
 `;
 
 export const BadgeColumn = styled.div`
   flex: 1;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const Badge = styled.div`
   background-color: #007bff;
   color: #fff;
   padding: 5px;
-  border-radius: 5px;
+  border-radius: 100%;
+  width: 20px;
+  height: 20px;
   margin-top: 10px; /* Adjust as needed */
 `;
