@@ -8,7 +8,7 @@ import { Pagination, Navigation } from 'swiper/modules';
 import { AppContainer, Button, StyledApp } from './styled/styled';
 import WebApp from '@twa-dev/sdk';
 import { useAsyncInitialize } from '../hooks/useAsyncInitialize';
-import { getAction, postUserAction } from '../api';
+import { getAction, postUserAction } from '../apis/api';
 
 export default function Slides() {
 

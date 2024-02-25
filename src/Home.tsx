@@ -12,7 +12,9 @@ import "@twa-dev/sdk";
 import { useState } from "react";
 import { useAsyncInitialize } from "./hooks/useAsyncInitialize";
 import Modal from "./components/Modal/Modal";
-import { getAppUserData, postUserAction, setAuthToken } from "./api";
+import { getAppUserData, postUserAction, setAuthToken } from "./apis/api";
+import { getAccountNftItems } from "./apis/tonApi";
+import { NftItem, NftsDisplay } from "./components/Nfts";
 
 
 
@@ -22,6 +24,7 @@ function Home() {
   const [isModalOpen, setModalOpen] = useState(false);
   const urlParams = new URLSearchParams(window.location.search);
   const [token, setToken] = useState<string | null>(urlParams.get('token'));
+  const [nftItems, setNftItems] = useState<NftItem[]>([]);
   if (token)
     setAuthToken(token);
 
@@ -43,7 +46,27 @@ function Home() {
     }
   };
 
-  const { network } = useTonConnect();
+  const { wallet } = useTonConnect();
+
+
+
+  useAsyncInitialize(async () => {
+    if (wallet && nftItems.length <= 0) {
+      const res = await getAccountNftItems(wallet, { limit: 1000 });
+
+      let items = res.nft_items.map((m: any) => {
+        let url = m.previews.find((preview: any) => preview.resolution === "500x500")?.url;
+        m.metadata.imageUrl = url;
+        return m.metadata;
+      });
+
+      setNftItems(items);
+    }
+  }, [nftItems, wallet]);
+
+
+
+
 
   useAsyncInitialize(async () => {
     const response = await getAppUserData(1);
@@ -81,6 +104,8 @@ function Home() {
               />
             ))
           }
+
+          {nftItems.length > 0 && (<NftsDisplay items={nftItems} />)}
 
 
           {/* {<FlexBoxRow>

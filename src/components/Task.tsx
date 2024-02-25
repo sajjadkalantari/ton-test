@@ -3,7 +3,7 @@ import WebApp from '@twa-dev/sdk';
 import { faLock, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
-import { postUserAction } from "../api";
+import { postUserAction } from "../apis/api";
 import { TonConnectButton } from "@tonconnect/ui-react";
 import { useEffect } from "react";
 import { useTonConnect } from "../hooks/useTonConnect";
