@@ -9,7 +9,7 @@ export const setAuthToken = (token: string) => {
     tonApi.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 }
 
-setAuthToken("");
+setAuthToken("AF2DOQJUIUWXNVYAAAAJBURCD5LU6MKLKM7F4IGUNAA32LST26SY7FOTKOG6W7PUAZWH5BA");
 
 export const getAccountNftItems = async (address: string, params: { limit: number }) => {
     try {
