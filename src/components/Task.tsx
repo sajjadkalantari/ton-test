@@ -37,7 +37,7 @@ export function Task({ isLocked, title, description, point, id, type, redirectio
   const { connected, wallet } = useTonConnect();
   let sentWalletAction = false;
   useEffect(() => {
-    if (connected && !sentWalletAction) {
+    if (type === ActionType.ConnectBlockchainWallet && connected && !sentWalletAction) {
       postUserAction(id, { data: wallet });
       sentWalletAction = true;      
     }

@@ -49,9 +49,18 @@ function Home() {
   const { wallet } = useTonConnect();
 
 
-
   useAsyncInitialize(async () => {
-    if (wallet && nftItems.length <= 0) {
+    const response = await getAppUserData(1);
+    setInitData(response);
+    return response;
+  }, []);
+
+  const tasks = initData?.actions as TaskProps[] ?? [];
+  const username = initData?.user.username;
+  const pointMessage = `${username} your point is`;
+  console.log(username);
+  useAsyncInitialize(async () => {
+    if (username && wallet && nftItems.length <= 0) {
       const res = await getAccountNftItems(wallet, { limit: 1000 });
 
       let items = res.nft_items.map((m: any) => {
@@ -62,22 +71,7 @@ function Home() {
 
       setNftItems(items);
     }
-  }, [nftItems, wallet]);
-
-
-
-
-
-  useAsyncInitialize(async () => {
-    const response = await getAppUserData(1);
-    setInitData(response);
-    return response;
-  }, []);
-
-  const tasks = initData?.actions as TaskProps[] ?? [];
-  const username = initData?.user.username;
-  const pointMessage = `${username} your point is`;
-
+  }, [nftItems, wallet, username]);
 
   return (
     <StyledApp>
