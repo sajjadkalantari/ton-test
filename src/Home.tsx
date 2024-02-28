@@ -79,7 +79,7 @@ function Home() {
         <FlexBoxCol>
 
           <Modal isOpen={isModalOpen} onClose={closeModal} onSubmit={handleSubmit} />
-          <img src="/roolzHero.png" style={{width: "100%", height: "auto", borderRadius: "5px"}} />
+          <img src="./roolzHero.png" style={{width: "100%", height: "auto", borderRadius: "5px"}} />
 
           <Point description={pointMessage} points={initData?.user.points ?? 0} />
 
