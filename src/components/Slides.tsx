@@ -37,21 +37,19 @@ export default function Slides() {
           }}
           // navigation={true}
           modules={[Pagination, Navigation]}
-          className="mySwiper"
         >
           {
             res?.actionFiles?.map((item: any, index: number) => (
               <SwiperSlide key={index}>
-                <div className="card" style={{ width: '300px', height: '400px' }}>
+                <div style={{ padding: "20px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
                   <img
                     src={item.filePath}
-                    className="card-img-top"
                     alt={item.title}
-                    style={{ height: '200px', objectFit: 'cover' }}
+                    style={{ width: "100%", height: "auto", borderRadius: "5px" }}
                   />
-                  <div className="card-body">
-                    <h5 className="card-title">{item.title}</h5>
-                    <p className="card-text">{item.description}</p>
+                  <div style={{ textAlign: "center", marginBottom:"5px" }}>
+                    <h3>{item.title}</h3>
+                    <p style={{ color: "#DDD", fontSize:"medium" }}>{item.description}</p>
                   </div>
                   {index === totalSlides - 1 && (
                     <Button onClick={async () => {

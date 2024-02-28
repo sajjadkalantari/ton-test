@@ -13,6 +13,8 @@ const NftItem = styled.div`
   width: calc(50% - 20px);
   margin: 10px;
   box-sizing: border-box;
+  border-radius: 5px;
+  border: 1px solid #404043;
 `;
 
 // Styled component for images
