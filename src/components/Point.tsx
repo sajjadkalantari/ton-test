@@ -19,13 +19,13 @@ export function Point({ description, points }: PointProps) {
     <Card>
       <PointContainer>
         <TaskIcon>
-          <FontAwesomeIcon icon={faTrophy} color="#007bff" />
+          <FontAwesomeIcon icon={faTrophy} color="goldenrod" />
         </TaskIcon>
         <DescriptionColumn>
           <p>{description}</p>
         </DescriptionColumn>
         <BadgeColumn>
-          <b>{points}</b>
+          <b style={{color:"goldenrod", fontSize:"larger"}}>{points}</b>
         </BadgeColumn>
       </PointContainer>
     </Card>

@@ -1,13 +1,16 @@
 import styled from "styled-components";
 
-export const Card = styled.div`
-  padding: 18px 20px;
-  border-radius: 8px;
-  background-color: white;
+export const StyledApp = styled.div`
+  background-color: #222;
+  color: white;
+  min-height: 100vh;
+  padding: 10px;
+  font: 
+`;
 
-  @media (prefers-color-scheme: dark) {
-    background-color: #111;
-  }
+
+
+export const Card = styled.div`
 `;
 
 export const FlexBoxRow = styled.div`
@@ -45,25 +48,10 @@ export const Input = styled("input")`
   padding: 10px 0px 10px 2px;
   border-radius: 10px;
   width: 100%;
-  border: 1px solid #c2c2c2;
-
-  @media (prefers-color-scheme: dark) {
-    border: 1px solid #fefefe;
-  }
+  border: 1px solid #fefefe;
 `;
 
 
-export const StyledApp = styled.div`
-  background-color: #e8e8e8;
-  color: black;
-
-  @media (prefers-color-scheme: dark) {
-    background-color: #222;
-    color: white;
-  }
-  min-height: 100vh;
-  padding: 20px 20px;
-`;
 
 export const AppContainer = styled.div`
   max-width: 900px;
@@ -97,9 +85,8 @@ export const ModalContent = styled.div`
 export const PointContainer = styled.div`
   display: flex;
   align-items: center;
-  padding: 10px;
-  border: 1px solid #ccc;
-  background-color: #d2f5d3;
+  // padding: 10px;
+  border: 1px solid #404043;
   border-radius: 5px;
 `;
 
@@ -111,8 +98,8 @@ export const DescriptionColumn = styled.div`
 export const TaskContainer = styled.div`
   display: flex;
   align-items: center;
-  padding: 10px;
-  border: 1px solid #ccc;
+  // padding: 10px;
+  border: 1px solid #404043;
   border-radius: 5px;
 `;
 
@@ -140,11 +127,22 @@ export const BadgeColumn = styled.div`
 `;
 
 export const Badge = styled.div`
-  background-color: #007bff;
-  color: #fff;
-  padding: 5px;
-  border-radius: 100%;
-  width: 20px;
-  height: 20px;
-  margin-top: 10px; /* Adjust as needed */
+  // background-color: dodgerblue;
+  // color: #fff;
+  // padding: 5px;
+  // border-radius: 5px;
+  // width: 20px;
+  // height: 20px;  
+
+  color: dodgerblue;
+  font-size: x-large;
+`;
+
+export const HeroImage = styled.div`
+  background-image: url(${(props: { image: string }) => props.image});
+  background-size: cover;
+  background-position: center;
+  border-radius: 5px;
+  height: 500px; // You can adjust this value based on your needs
+  width: 100%;
 `;

@@ -1,6 +1,6 @@
 import { Badge, BadgeColumn, Card, TaskContainer, TaskIcon, TextColumn } from "./styled/styled";
 import WebApp from '@twa-dev/sdk';
-import { faLock, faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faLock, faCheck, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
 import { postUserAction } from "../apis/api";
@@ -32,14 +32,14 @@ export interface TaskProps {
 
 export function Task({ isLocked, title, description, point, id, type, redirectionLink, openModal, setSelectedTaskId }: TaskProps) {
   const navigate = useNavigate();
-  const lockIconColor = isLocked ? 'gray' : 'green';
+  const lockIconColor = isLocked ? '#DDD' : 'lightgreen';
   const lockIcon = isLocked ? faLock : faCheck;
   const { connected, wallet } = useTonConnect();
   let sentWalletAction = false;
   useEffect(() => {
     if (type === ActionType.ConnectBlockchainWallet && connected && !sentWalletAction) {
       postUserAction(id, { data: wallet });
-      sentWalletAction = true;      
+      sentWalletAction = true;
     }
   }, [connected, wallet]);
 
@@ -68,18 +68,17 @@ export function Task({ isLocked, title, description, point, id, type, redirectio
         doTheAction();
       }}>
         <TaskIcon>
-          <FontAwesomeIcon icon={lockIcon} color={lockIconColor} />
+          <FontAwesomeIcon icon={lockIcon} color={lockIconColor} style={{ padding: "8px", backgroundColor: "#404043", borderRadius: "5px" }} />
         </TaskIcon>
         <TextColumn>
           <p style={{ fontWeight: 'bold', fontSize: 'larger' }}>{title}</p>
-          <p>{description}</p>
-
+          <p style={{ color: "#DDD" }}>{description}</p>
           {type === ActionType.ConnectBlockchainWallet && (<TonConnectButton style={{ margin: "16px" }} />)}
-
         </TextColumn>
 
         <BadgeColumn>
           <Badge>{point}</Badge>
+          <FontAwesomeIcon icon={faChevronRight} color="#DDD" style={{ marginLeft: "10px" }} />
         </BadgeColumn>
       </TaskContainer>
     </Card>

@@ -5,7 +5,7 @@ import { Jetton } from "./components/Jetton";
 import { Task, TaskProps } from "./components/Task";
 import { Point } from "./components/Point";
 import { TransferTon } from "./components/TransferTon";
-import { AppContainer, Button, FlexBoxCol, FlexBoxRow, StyledApp } from "./components/styled/styled";
+import { AppContainer, FlexBoxCol, StyledApp } from "./components/styled/styled";
 import { useTonConnect } from "./hooks/useTonConnect";
 import { CHAIN } from "@tonconnect/protocol";
 import "@twa-dev/sdk";
@@ -79,6 +79,7 @@ function Home() {
         <FlexBoxCol>
 
           <Modal isOpen={isModalOpen} onClose={closeModal} onSubmit={handleSubmit} />
+          <img src="/roolzHero.png" style={{width: "100%", height: "auto", borderRadius: "5px"}} />
 
           <Point description={pointMessage} points={initData?.user.points ?? 0} />
 
