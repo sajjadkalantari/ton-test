@@ -22,10 +22,10 @@ export function Point({ description, points }: PointProps) {
           <FontAwesomeIcon icon={faTrophy} color="goldenrod" />
         </TaskIcon>
         <DescriptionColumn>
-          <p>{description}</p>
+          <p style={{ textAlign: "center" }}>{description}</p>
         </DescriptionColumn>
         <BadgeColumn>
-          <b style={{color:"goldenrod", fontSize:"larger"}}>{points}</b>
+          <b style={{ color: "goldenrod", fontSize: "larger" }}>{points}</b>
         </BadgeColumn>
       </PointContainer>
     </Card>
