@@ -75,8 +75,9 @@ export const ModalWrapper = styled.div`
 `;
 
 export const ModalContent = styled.div`
-  background: white;
+  background: #2e2d2c;
   padding: 20px;
+  margin: 30px;
   border-radius: 8px;
   text-align: center;
 `;
