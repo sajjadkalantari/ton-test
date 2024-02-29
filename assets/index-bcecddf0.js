@@ -1195,8 +1195,9 @@ PERFORMANCE OF THIS SOFTWARE.
   opacity: ${e=>e.isOpen?1:0};
   transition: visibility 0s, opacity 0.3s ease;
 `,jD=_r.div`
-  background: white;
+  background: #2e2d2c;
   padding: 20px;
+  margin: 30px;
   border-radius: 8px;
   text-align: center;
 `,zD=_r.div`
