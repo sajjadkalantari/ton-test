@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:5120';
+const API_BASE_URL = 'https://taskbot-api.roolzanime.com';
 const api = axios.create({
     baseURL: API_BASE_URL,
 });
@@ -31,6 +31,15 @@ export const getAction = async (id: number) => {
 export const postUserAction = async (id: number, userAction: any) => {
     try {
         const response = await api.post(`actions/${id}`, userAction);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const getLeaderBoard = async () => {
+    try {
+        const response = await api.get(`app/leader-board`);
         return response.data;
     } catch (error) {
         throw error;

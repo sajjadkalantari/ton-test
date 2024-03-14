@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 export const StyledApp = styled.div`
-  background-color: #222;
+  background-color: rgba(0,0,0,0.6);
   color: white;
   min-height: 100vh;
   padding: 10px;
-  font: 
+  font-family: "Inter", sans-serif;
 `;
 
 
@@ -146,4 +146,67 @@ export const HeroImage = styled.div`
   border-radius: 5px;
   height: 500px; // You can adjust this value based on your needs
   width: 100%;
+`;
+
+
+// Styled components
+export const LeaderboardContainer = styled.div`
+  width: 95%;
+  max-width: 600px;
+  margin: auto;
+  padding: 20px 10px;
+  background: rgba(0, 0, 0, 0.5);;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+`;
+
+export const PlayerRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  &:last-child {
+    border-bottom: none;
+  }
+`;
+
+export const PlayerInfo = styled.span`
+  font-size: 10px;
+  text-align: center;
+`;
+
+
+// Styled-components
+export const TopPlayersContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 10px;
+  margin: 20px 10px;
+`;
+
+export const PlayerCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: ${(props: { isTopPlayer: boolean }) => (props.isTopPlayer ? '150px' : '120px')};
+  padding: ${({ isTopPlayer }) => (isTopPlayer ? '20px' : '15px')} 10px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid #404043;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px blue;
+`;
+
+export const PlayerAvatar = styled.img`
+  width: ${(props: { isTopPlayer: boolean }) => (props.isTopPlayer ? '100px' : '80px')};
+  height: ${({ isTopPlayer }) => (isTopPlayer ? '100px' : '80px')};
+  border-radius: 50%;
+  margin-bottom: 10px;
+`;
+
+export const CrownIcon = styled.img`
+  width: 30px;
+  height: 30px;
+  position: relative;
+  top: ${(props: { isTopPlayer: boolean }) => (props.isTopPlayer ? '0px' : '-10px')}; // Adjust based on your layout
 `;

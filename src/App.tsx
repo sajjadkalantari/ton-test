@@ -1,15 +1,17 @@
-import { BrowserRouter as Router, Route, Routes, HashRouter  } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Home from "./Home";
+import { LeaderBoard } from './components/LeaderBoard';
 import Slides from './components/Slides';
 
 function App() {
   return (
-    <HashRouter>
+    <Router>
       <Routes>
-        <Route path="/story/:id" element={<Slides />} />
-        <Route path="/*" element={<Home />} />
+        <Route path="/" element={<Home />}  />
+        <Route path="/leader" element={<LeaderBoard />}  />
+        <Route path="/story/:id" element={<Slides />}  />
       </Routes>
-    </HashRouter>
+    </Router>
 
   );
 }

@@ -19,7 +19,7 @@ export function Point({ description, points }: PointProps) {
     <Card>
       <PointContainer>
         <TaskIcon>
-          <FontAwesomeIcon icon={faTrophy} color="goldenrod" />
+          <img width={40} style={{marginLeft:"10px"}} src="./god-point.png" alt="point" />
         </TaskIcon>
         <DescriptionColumn>
           <p style={{ textAlign: "center" }}>{description}</p>

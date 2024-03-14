@@ -1,20 +1,15 @@
-import "./App.css";
-import { TonConnectButton } from "@tonconnect/ui-react";
-import { Counter } from "./components/Counter";
-import { Jetton } from "./components/Jetton";
-import { Task, TaskProps } from "./components/Task";
-import { Point } from "./components/Point";
-import { TransferTon } from "./components/TransferTon";
-import { AppContainer, FlexBoxCol, StyledApp } from "./components/styled/styled";
-import { useTonConnect } from "./hooks/useTonConnect";
-import { CHAIN } from "@tonconnect/protocol";
 import "@twa-dev/sdk";
 import { useState } from "react";
-import { useAsyncInitialize } from "./hooks/useAsyncInitialize";
-import Modal from "./components/Modal/Modal";
+import "./App.css";
 import { getAppUserData, postUserAction, setAuthToken } from "./apis/api";
 import { getAccountNftItems } from "./apis/tonApi";
+import Modal from "./components/Modal/Modal";
 import { NftItem, NftsDisplay } from "./components/Nfts";
+import { Point } from "./components/Point";
+import { Task, TaskProps } from "./components/Task";
+import { AppContainer, FlexBoxCol, StyledApp } from "./components/styled/styled";
+import { useAsyncInitialize } from "./hooks/useAsyncInitialize";
+import { useTonConnect } from "./hooks/useTonConnect";
 
 
 
@@ -79,7 +74,7 @@ function Home() {
         <FlexBoxCol>
 
           <Modal isOpen={isModalOpen} onClose={closeModal} onSubmit={handleSubmit} />
-          <img src="./roolzHero.png" style={{width: "100%", height: "auto", borderRadius: "5px"}} />
+          <img src="./roolzHero2.png" style={{width: "100%", height: "auto", borderRadius: "5px"}} />
 
           <Point description={pointMessage} points={initData?.user.points ?? 0} />
 
