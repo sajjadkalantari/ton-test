@@ -22,10 +22,10 @@ export function Point({ description, points }: PointProps) {
           <img width={40} style={{marginLeft:"10px"}} src="./god-point.png" alt="point" />
         </TaskIcon>
         <DescriptionColumn>
-          <p style={{ textAlign: "center" }}>{description}</p>
+          <p style={{ textAlign: "center", fontSize: "small" }}>{description}</p>
         </DescriptionColumn>
         <BadgeColumn>
-          <b style={{ color: "goldenrod", fontSize: "larger" }}>{points}</b>
+          <b style={{ color: "goldenrod", fontSize: "medium" }}>{points}</b>
         </BadgeColumn>
       </PointContainer>
     </Card>

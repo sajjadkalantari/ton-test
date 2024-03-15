@@ -18,10 +18,14 @@ function Home() {
   const [selectedTaskId, setSelectedTaskId] = useState<any>();
   const [isModalOpen, setModalOpen] = useState(false);
   const urlParams = new URLSearchParams(window.location.search);
-  const [token, setToken] = useState<string | null>(urlParams.get('token'));
-  const [nftItems, setNftItems] = useState<NftItem[]>([]);
+  const appToken = urlParams.get('token');
+  if (appToken)
+    localStorage.setItem('token', appToken)
+  // const [token, setToken] = useState<string | null>(appToken || );
+  const token = localStorage.getItem('token');
   if (token)
     setAuthToken(token);
+  const [nftItems, setNftItems] = useState<NftItem[]>([]);
 
   const openModal = () => {
     setModalOpen(true);
@@ -52,7 +56,7 @@ function Home() {
 
   const tasks = initData?.actions as TaskProps[] ?? [];
   const username = initData?.user.username;
-  const pointMessage = `${username} your point is`;
+  const pointMessage = `@${username} points balance`;
   console.log(username);
   useAsyncInitialize(async () => {
     if (username && wallet && nftItems.length <= 0) {
@@ -74,7 +78,7 @@ function Home() {
         <FlexBoxCol>
 
           <Modal isOpen={isModalOpen} onClose={closeModal} onSubmit={handleSubmit} />
-          <img src="./roolzHero2.png" style={{width: "100%", height: "auto", borderRadius: "5px"}} />
+          <img src="./roolzHero2.png" style={{ width: "100%", height: "auto", borderRadius: "5px" }} />
 
           <Point description={pointMessage} points={initData?.user.points ?? 0} />
 

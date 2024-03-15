@@ -136,7 +136,7 @@ export const Badge = styled.div`
   // height: 20px;  
 
   color: dodgerblue;
-  font-size: x-large;
+  font-size: small;
 `;
 
 export const HeroImage = styled.div`

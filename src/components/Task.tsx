@@ -71,14 +71,14 @@ export function Task({ isLocked, title, description, point, id, type, redirectio
           <FontAwesomeIcon icon={lockIcon} color={lockIconColor} style={{ padding: "8px", backgroundColor: "#404043", borderRadius: "5px" }} />
         </TaskIcon>
         <TextColumn>
-          <p style={{ fontWeight: 'bold', fontSize: 'larger' }}>{title}</p>
-          <p style={{ color: "#DDD" }}>{description}</p>
-          {type === ActionType.ConnectBlockchainWallet && (<TonConnectButton style={{ margin: "16px" }} />)}
+          <span style={{ fontWeight: 'bold', fontSize: 'small', padding: "5px 5px 2px 5px" }}>{title}</span>
+          <span style={{ color: "#DDD", fontSize: 'small', padding: "2px 5px 5px 5px" }}>{description}</span>
+          {type === ActionType.ConnectBlockchainWallet && (<TonConnectButton style={{ margin: "16px", fontSize: "small" }} />)}
         </TextColumn>
 
         <BadgeColumn>
           <Badge>{point}</Badge>
-          <FontAwesomeIcon icon={faChevronRight} color="#DDD" style={{ marginLeft: "10px" }} />
+          <FontAwesomeIcon icon={faChevronRight} color="#DDD" style={{ marginLeft: "10px", fontSize: "xx-small" }} />
         </BadgeColumn>
       </TaskContainer>
     </Card>
