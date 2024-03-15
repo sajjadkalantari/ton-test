@@ -7,7 +7,7 @@ function App() {
   return (
     <HashRouter>
       <Routes>
-        <Route path="/" element={<Home />}  />
+        <Route path="/*" element={<Home />}  />
         <Route path="/leader" element={<LeaderBoard />}  />
         <Route path="/story/:id" element={<Slides />}  />
       </Routes>
