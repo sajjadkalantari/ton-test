@@ -19,13 +19,13 @@ export function Point({ description, points }: PointProps) {
     <Card>
       <PointContainer>
         <TaskIcon>
-          <img width={40} style={{marginLeft:"10px"}} src="./god-point.png" alt="point" />
+          <img width={40} style={{ marginLeft: "10px" }} src="./god-point.png" alt="point" />
         </TaskIcon>
         <DescriptionColumn>
           <p style={{ textAlign: "center", fontSize: "small" }}>{description}</p>
         </DescriptionColumn>
         <BadgeColumn>
-          <b style={{ color: "goldenrod", fontSize: "medium" }}>{points}</b>
+          <b style={{ fontFamily: '"Press Start 2P"', color: "goldenrod", fontSize: "small" }}>{points}</b>
         </BadgeColumn>
       </PointContainer>
     </Card>

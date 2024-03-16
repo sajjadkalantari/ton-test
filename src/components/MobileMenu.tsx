@@ -71,7 +71,7 @@ export function MobileMenue({ activeItem, onItemClick }: MenueProps) {
       <MenuIcon active={activeItem === 'leaderboard'} onClick={() => { onItemClick('leaderboard'); navigate('/leader');}}>
         <MenuLabel active={activeItem === 'leaderboard'}>
         <FontAwesomeIcon icon={faTrophy} />
-          <span style={{marginTop: "5px"}}>Leaders</span>
+          <span style={{marginTop: "5px"}}>Leader board</span>
         </MenuLabel>
       </MenuIcon>
     </MobileMenuContainer>

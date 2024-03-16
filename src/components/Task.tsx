@@ -77,7 +77,7 @@ export function Task({ isLocked, title, description, point, id, type, redirectio
         </TextColumn>
 
         <BadgeColumn>
-          <Badge>{point}</Badge>
+          <Badge style={{ fontFamily: '"Press Start 2P"', fontSize: "x-small" }} >{point}</Badge>
           <FontAwesomeIcon icon={faChevronRight} color="#DDD" style={{ marginLeft: "10px", fontSize: "xx-small" }} />
         </BadgeColumn>
       </TaskContainer>
