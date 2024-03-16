@@ -24,36 +24,36 @@ export function LeaderBoard() {
 
     <StyledApp>
       <AppContainer>
+        {res && res.length > 0 && (
 
-        <TopPlayersContainer>
-          {/* Second Place */}
-          <PlayerCard isTopPlayer={false}>
-            <PlayerAvatar src="./second-god2.png" isTopPlayer={false} />
-            <PlayerInfo>
-              <div>{res[1].points} Points</div>
-              <div>{res[1].username}</div>
-            </PlayerInfo>
-          </PlayerCard>
+          <TopPlayersContainer>
+            <PlayerCard isTopPlayer={false}>
+              <PlayerAvatar src="./second-god2.png" isTopPlayer={false} />
+              <PlayerInfo>
+                <div>{res[1].points} Points</div>
+                <div>{res[1].username}</div>
+              </PlayerInfo>
+            </PlayerCard>
 
-          {/* First Place */}
-          <PlayerCard isTopPlayer={true}>
-            <CrownIcon src="./crawn.png" isTopPlayer={true} />
-            <PlayerAvatar src="./first-god.png" isTopPlayer={true} />
-            <PlayerInfo>
-              <div>{res[0].points} Points</div>
-              <div>{res[0].username}</div>
-            </PlayerInfo>
-          </PlayerCard>
+            <PlayerCard isTopPlayer={true}>
+              <CrownIcon src="./crawn.png" isTopPlayer={true} />
+              <PlayerAvatar src="./first-god.png" isTopPlayer={true} />
+              <PlayerInfo>
+                <div>{res[0].points} Points</div>
+                <div>{res[0].username}</div>
+              </PlayerInfo>
+            </PlayerCard>
 
-          {/* Third Place */}
-          <PlayerCard isTopPlayer={false}>
-            <PlayerAvatar src="./third-god2.png" isTopPlayer={false} />
-            <PlayerInfo>
-              <div>{res[2].points} Points</div>
-              <div>{res[2].username}</div>
-            </PlayerInfo>
-          </PlayerCard>
-        </TopPlayersContainer>
+            <PlayerCard isTopPlayer={false}>
+              <PlayerAvatar src="./third-god2.png" isTopPlayer={false} />
+              <PlayerInfo>
+                <div>{res[2].points} Points</div>
+                <div>{res[2].username}</div>
+              </PlayerInfo>
+            </PlayerCard>
+          </TopPlayersContainer>
+        )}
+
 
         <LeaderboardContainer>
           {
