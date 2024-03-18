@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'https://testnet.tonapi.io';
+const API_BASE_URL = 'https://tonapi.io';
 const tonApi = axios.create({
     baseURL: API_BASE_URL,
 });
