@@ -10,10 +10,12 @@ import { Task, TaskProps } from "./components/Task";
 import { AppContainer, FlexBoxCol, StyledApp } from "./components/styled/styled";
 import { useAsyncInitialize } from "./hooks/useAsyncInitialize";
 import { useTonConnect } from "./hooks/useTonConnect";
+import Loader from "./components/Loader";
 
 
 
 function Home() {
+  const [loading, setLoading] = useState(false);
   const [initData, setInitData] = useState<any>();
   const [selectedTaskId, setSelectedTaskId] = useState<any>();
   const [isModalOpen, setModalOpen] = useState(false);
@@ -36,28 +38,38 @@ function Home() {
   };
 
   const handleSubmit = async (text: any) => {
-    if (selectedTaskId) {
-      await postUserAction(selectedTaskId, {
-        data: text
-      });
-
+    try {
+      if (selectedTaskId) {
+        setLoading(true);
+        await postUserAction(selectedTaskId, {
+          data: text
+        });
+      }
+    } finally {
+      setLoading(false);
       window.location.reload();
     }
+
   };
 
   const { wallet } = useTonConnect();
 
 
   useAsyncInitialize(async () => {
-    const response = await getAppUserData(1);
-    setInitData(response);
-    return response;
+    try {
+      setLoading(true);
+      const response = await getAppUserData(1);
+      setInitData(response);
+      return response;
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   const tasks = initData?.actions as TaskProps[] ?? [];
   const username = initData?.user.username;
   const pointMessage = `@${username} points balance`;
-  const collectionAddress = "EQCLN0mc5zJwjBAxhwtpQFlPq2nLoA5HR0pWbt5lXObX5oqa";  
+  const collectionAddress = "EQCLN0mc5zJwjBAxhwtpQFlPq2nLoA5HR0pWbt5lXObX5oqa";
   useAsyncInitialize(async () => {
     if (username && wallet && nftItems.length <= 0) {
       const res = await getAccountNftItems(wallet, { limit: 1000, collection: collectionAddress });
@@ -73,53 +85,40 @@ function Home() {
   }, [nftItems, wallet, username]);
 
   return (
-    <StyledApp>
-      <AppContainer>
-        <FlexBoxCol>
+    <>
+      <Loader loading={loading} />
+      <StyledApp>
+        <AppContainer>
+          <FlexBoxCol>
 
-          <Modal isOpen={isModalOpen} onClose={closeModal} onSubmit={handleSubmit} />
-          <img src="./roolzHero2.png" style={{ width: "100%", height: "auto", borderRadius: "5px" }} />
+            <Modal isOpen={isModalOpen} onClose={closeModal} onSubmit={handleSubmit} />
+            <img src="./roolzHero2.png" style={{ width: "100%", height: "auto", borderRadius: "5px" }} />
 
-          <Point description={pointMessage} points={initData?.user.points ?? 0} />
+            <Point description={pointMessage} points={initData?.user.points ?? 0} />
 
-          {
-            tasks.map((task, index) => (
-              <Task
-                key={index}
-                redirectionLink={task.redirectionLink}
-                type={task.type}
-                id={task.id}
-                isLocked={initData?.user.userActions.some((item: { actionId: number }) => item.actionId === task.id) ? false : true}
-                description={task.description}
-                point={task.point}
-                title={task.title}
-                openModal={openModal}
-                setSelectedTaskId={setSelectedTaskId}
-              />
-            ))
-          }
+            {
+              tasks.map((task, index) => (
+                <Task
+                  key={index}
+                  redirectionLink={task.redirectionLink}
+                  type={task.type}
+                  id={task.id}
+                  isLocked={initData?.user.userActions.some((item: { actionId: number }) => item.actionId === task.id) ? false : true}
+                  description={task.description}
+                  point={task.point}
+                  title={task.title}
+                  openModal={openModal}
+                  setSelectedTaskId={setSelectedTaskId}
+                  setLoading={setLoading}
+                />
+              ))
+            }
 
-          {nftItems.length > 0 && (<NftsDisplay items={nftItems} />)}
-
-
-          {/* {<FlexBoxRow>
-            <TonConnectButton />
-            <Button>
-              {network
-                ? network === CHAIN.MAINNET
-                  ? "mainnet"
-                  : "testnet"
-                : "N/A"}
-            </Button>
-          </FlexBoxRow>
-          <Counter />
-          <TransferTon />
-          <Jetton /> 
-          } */}
-        </FlexBoxCol>
-      </AppContainer>
-    </StyledApp>
-
+            {nftItems.length > 0 && (<NftsDisplay items={nftItems} />)}
+          </FlexBoxCol>
+        </AppContainer>
+      </StyledApp>
+    </>
   );
 }
 

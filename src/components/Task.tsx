@@ -26,11 +26,12 @@ export interface TaskProps {
   redirectionLink: string | null,
   openModal: Function,
   setSelectedTaskId: Function,
+  setLoading: Function
 }
 
 
 
-export function Task({ isLocked, title, description, point, id, type, redirectionLink, openModal, setSelectedTaskId }: TaskProps) {
+export function Task({ isLocked, title, description, point, id, type, redirectionLink, openModal, setSelectedTaskId, setLoading }: TaskProps) {
   const navigate = useNavigate();
   const lockIconColor = isLocked ? '#DDD' : 'lightgreen';
   const lockIcon = isLocked ? faLock : faCheck;
@@ -38,15 +39,20 @@ export function Task({ isLocked, title, description, point, id, type, redirectio
   useEffect(() => {
     // Define an async function inside the useEffect
     const handleAction = async () => {
-      if (type === ActionType.ConnectBlockchainWallet) {
-        const sessionWallet = sessionStorage.getItem("wallet");
-        if (connected && wallet && !sessionWallet) {
-          await postUserAction(id, { data: wallet });
-          sessionStorage.setItem("wallet", wallet);
-          window.location.reload(); // This will reload the page and interrupt the flow, consider handling this differently if needed
-        } else if (!connected) {
-          sessionStorage.removeItem("wallet");
+      try {
+        setLoading(true);
+        if (type === ActionType.ConnectBlockchainWallet) {
+          const sessionWallet = sessionStorage.getItem("wallet");
+          if (connected && wallet && !sessionWallet) {
+            await postUserAction(id, { data: wallet });
+            sessionStorage.setItem("wallet", wallet);
+            window.location.reload(); // This will reload the page and interrupt the flow, consider handling this differently if needed
+          } else if (!connected) {
+            sessionStorage.removeItem("wallet");
+          }
         }
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -55,21 +61,26 @@ export function Task({ isLocked, title, description, point, id, type, redirectio
   }, [connected, wallet, type, id]);
 
   const doTheAction = async () => {
-    setSelectedTaskId(id);
-    if (type === ActionType.FollowOnSocialMedia) {
-      await postUserAction(id, { data: "" });
-      if (redirectionLink) {
-        WebApp.openLink(redirectionLink, { try_instant_view: true });
-        window.location.reload();
+    try {
+      setLoading(true);
+      setSelectedTaskId(id);
+      if (type === ActionType.FollowOnSocialMedia) {
+        await postUserAction(id, { data: "" });
+        if (redirectionLink) {
+          WebApp.openLink(redirectionLink, { try_instant_view: true });
+          window.location.reload();
+        }
+      } else if (type === ActionType.ReadContentCompletely) {
+        navigate(`/story/${id}`);
+      } else if (type === ActionType.ShareSocialMediaPost) {
+        if (redirectionLink) {
+          openModal();
+          WebApp.openLink(redirectionLink, { try_instant_view: true });
+        }
+      } else if (type === ActionType.ConnectBlockchainWallet) {
       }
-    } else if (type === ActionType.ReadContentCompletely) {
-      navigate(`/story/${id}`);
-    } else if (type === ActionType.ShareSocialMediaPost) {
-      if (redirectionLink) {
-        openModal();
-        WebApp.openLink(redirectionLink, { try_instant_view: true });
-      }
-    } else if (type === ActionType.ConnectBlockchainWallet) {
+    } finally {
+      setLoading(false);
     }
   }
 
