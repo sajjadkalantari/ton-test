@@ -4,11 +4,15 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const MobileMenuContainer = styled.div`
-position: fixed;
-    bottom: 0px;
-    left: 0px;
-    width: 100%;
-    background-color: rgba(0, 0, 0);
+    position: fixed;
+    bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid;
+    border-image-source: linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.0114) 100%);
+    left: 50%;
+    transform: translate(-50%, 0%);
+    width: 79%;
+    background-color: #131313;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -23,7 +27,7 @@ position: fixed;
     -webkit-justify-content: space-around;
     -ms-flex-pack: space-around;
     justify-content: space-around;
-    padding: 5px 0;
+    padding: 12px 24px 12px 24px;
     z-index: 100;
 `;
 
@@ -35,14 +39,14 @@ const MenuIcon = styled.div`
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  padding: 10px
+  // padding: 10px
 `;
 
 const MenuLabel = styled.span`
   flex-direction: column;
   display: flex;
   font-size: 14px;
-  color: ${(props: { active: boolean }) => (props.active ? '#08f' : '#FFF')};
+  color: ${(props: { active: boolean }) => (props.active ? '#FFEEB1' : '#939393')};
 `;
 
 export interface MenueProps {
@@ -56,22 +60,22 @@ export function MobileMenue({ activeItem, onItemClick }: MenueProps) {
 
   return (
     <MobileMenuContainer>
-      {/* <MenuIcon active={activeItem === 'play'} onClick={() => onItemClick('play')}>
-        <MenuLabel active={activeItem === 'play'}>
-          <FontAwesomeIcon icon={faLock} />
-          <span style={{marginTop: "5px"}}>Play</span>
-        </MenuLabel>
-      </MenuIcon> */}
-      <MenuIcon active={activeItem === 'home'} onClick={() => { onItemClick('home'); navigate('/'); }}>
-        <MenuLabel active={activeItem === 'home'}>
-        <FontAwesomeIcon icon={faHome} />
-          <span style={{marginTop: "5px"}}>Home</span>
+      <MenuIcon active={activeItem === 'games'} onClick={() => { onItemClick('home'); navigate('/'); }}>
+        <MenuLabel active={activeItem === 'games'}>
+          <img style={{ width: "24px", margin: "auto" }} src={activeItem === 'games' ? "./Gamepad-active.svg" : "./Gamepad.svg"} alt="" />
+          <span style={{ marginTop: "5px", fontSize: "12px" }}>Games</span>
         </MenuLabel>
       </MenuIcon>
-      <MenuIcon active={activeItem === 'leaderboard'} onClick={() => { onItemClick('leaderboard'); navigate('/leader');}}>
+      <MenuIcon active={activeItem === 'home'} onClick={() => { onItemClick('home'); navigate('/'); }}>
+        <MenuLabel active={activeItem === 'home'}>
+          <img style={{ width: "24px", margin: "auto" }} src={activeItem === 'home' ? "./Bolt-active.svg" : "./Bolt.svg"} alt="" />
+          <span style={{ marginTop: "5px", fontSize: "12px" }}>Home</span>
+        </MenuLabel>
+      </MenuIcon>
+      <MenuIcon active={activeItem === 'leaderboard'} onClick={() => { onItemClick('leaderboard'); navigate('/leader'); }}>
         <MenuLabel active={activeItem === 'leaderboard'}>
-        <FontAwesomeIcon icon={faTrophy} />
-          <span style={{marginTop: "5px"}}>Leader board</span>
+          <img style={{ width: "24px", margin: "auto" }} src={activeItem === 'leaderboard' ? "./Cup-active.svg" : "./Cup.svg"} alt="" />
+          <span style={{ marginTop: "5px", fontSize: "12px" }}>High Score</span>
         </MenuLabel>
       </MenuIcon>
     </MobileMenuContainer>
