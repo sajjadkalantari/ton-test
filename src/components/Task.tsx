@@ -35,13 +35,24 @@ export function Task({ isLocked, title, description, point, id, type, redirectio
   const lockIconColor = isLocked ? '#DDD' : 'lightgreen';
   const lockIcon = isLocked ? faLock : faCheck;
   const { connected, wallet } = useTonConnect();
-  let sentWalletAction = false;
   useEffect(() => {
-    if (type === ActionType.ConnectBlockchainWallet && connected && !sentWalletAction) {
-      postUserAction(id, { data: wallet });
-      sentWalletAction = true;
-    }
-  }, [connected, wallet]);
+    // Define an async function inside the useEffect
+    const handleAction = async () => {
+      if (type === ActionType.ConnectBlockchainWallet) {
+        const sessionWallet = sessionStorage.getItem("wallet");
+        if (connected && wallet && !sessionWallet) {
+          await postUserAction(id, { data: wallet });
+          sessionStorage.setItem("wallet", wallet);
+          window.location.reload(); // This will reload the page and interrupt the flow, consider handling this differently if needed
+        } else if (!connected) {
+          sessionStorage.removeItem("wallet");
+        }
+      }
+    };
+
+    // Call the async function
+    handleAction();
+  }, [connected, wallet, type, id]);
 
   const doTheAction = async () => {
     setSelectedTaskId(id);
