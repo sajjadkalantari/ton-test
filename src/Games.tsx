@@ -6,7 +6,7 @@ const GameBackground = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: linear-gradient(to bottom, rgba(0,0,0,0.5) 50%, rgba(0,0,0,1) 100%), url('/bg2.png');
+  background-image: linear-gradient(to bottom, rgba(0,0,0,0.5) 50%, rgba(0,0,0,1) 100%), url('./bg2.png');
   background-size: cover;
   background-position: center;
   display: flex;
