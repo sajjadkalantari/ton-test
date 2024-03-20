@@ -28,12 +28,13 @@ const Overlay = styled.div`
   background-color: black;
   opacity: 0;
   animation: ${overlayFade} 0.3s forwards;
+  z-index: 9999;
 `;
 
 const Spinner = styled.div`
   position: fixed;
-  top: 50%;
-  left: 45%;
+  top: 43%;
+  left: 43%;
   transform: translate(-50%, -50%);
   border: 4px solid #f3f3f3;
   border-top: 4px solid #3498db;
@@ -41,6 +42,7 @@ const Spinner = styled.div`
   width: 50px;
   height: 50px;
   animation: ${spinnerSpin} 1s linear infinite;
+  z-index: 9999;
 `;
 
 const Loader = ({ loading }: { loading: boolean }) => {

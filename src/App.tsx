@@ -1,9 +1,10 @@
 import { HashRouter, Route, BrowserRouter as Router, Routes, useNavigate } from 'react-router-dom';
 import Home from "./Home";
-import { LeaderBoard } from './components/LeaderBoard';
+import { LeaderBoard } from './LeaderBoard';
 import Slides from './components/Slides';
 import { MobileMenue } from './components/MobileMenu';
 import { useState } from 'react';
+import { Games } from './Games';
 
 function App() {
   const [activeItem, setActiveItem] = useState('home');
@@ -16,6 +17,7 @@ function App() {
     <HashRouter>
       <Routes>
         <Route path="/*" element={<Home />} />
+        <Route path="/games" element={<Games />} />
         <Route path="/leader" element={<LeaderBoard />} />
         <Route path="/story/:id" element={<Slides />} />
       </Routes>

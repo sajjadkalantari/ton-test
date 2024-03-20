@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { getLeaderBoard } from '../apis/api';
-import { useAsyncInitialize } from '../hooks/useAsyncInitialize';
-import { AppContainer, CrownIcon, LeaderboardContainer, PlayerAvatar, PlayerCard, PlayerInfo, PlayerRow, StyledApp, TopPlayersContainer } from './styled/styled';
+import { getLeaderBoard } from './apis/api';
+import { useAsyncInitialize } from './hooks/useAsyncInitialize';
+import { AppContainer, CrownIcon, LeaderboardContainer, PlayerAvatar, PlayerCard, PlayerInfo, PlayerRow, StyledApp, TopPlayersContainer } from './components/styled/styled';
 import { useState } from 'react';
-import Loader from './Loader';
+import Loader from './components/Loader';
 
 export function LeaderBoard() {
   const [loading, setLoading] = useState(false);
@@ -28,7 +28,7 @@ export function LeaderBoard() {
     }
 
   });
-
+ 
   return (
     <>
       <Loader loading={loading} />

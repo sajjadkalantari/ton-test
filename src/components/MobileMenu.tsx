@@ -60,7 +60,7 @@ export function MobileMenue({ activeItem, onItemClick }: MenueProps) {
 
   return (
     <MobileMenuContainer>
-      <MenuIcon active={activeItem === 'games'} onClick={() => { onItemClick('home'); navigate('/'); }}>
+      <MenuIcon active={activeItem === 'games'} onClick={() => { onItemClick('games'); navigate('/games'); }}>
         <MenuLabel active={activeItem === 'games'}>
           <img style={{ width: "24px", margin: "auto" }} src={activeItem === 'games' ? "./Gamepad-active.svg" : "./Gamepad.svg"} alt="" />
           <span style={{ marginTop: "5px", fontSize: "12px" }}>Games</span>
