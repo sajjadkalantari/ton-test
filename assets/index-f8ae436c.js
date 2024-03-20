@@ -1285,6 +1285,7 @@ PERFORMANCE OF THIS SOFTWARE.
   // border-bottom: 1px solid #ddd;
   background: #1E1E1E;
   margin-bottom: 10px;
+  border-radius: 8px;
 `,ha=Lt.span`
   font-size: 10px;
   text-align: center;
