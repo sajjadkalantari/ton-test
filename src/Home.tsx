@@ -95,7 +95,7 @@ function Home() {
             <Modal isOpen={isModalOpen} onClose={closeModal} onSubmit={handleSubmit} />
             <img src="./roolzHero2.png" style={{ width: "100%", height: "auto", borderRadius: "5px" }} />
 
-            <Point description={pointMessage} points={initData?.user.points ?? 0} />
+            <Point description={pointMessage} points={initData?.user.taskPoints ?? 0} />
             <span style={{ display: "block", fontWeight: "600", fontSize: "14px", marginTop: "10px" }}>STARTER</span>
             {
               tasks.filter(item => {
