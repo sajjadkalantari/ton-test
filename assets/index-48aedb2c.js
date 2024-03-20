@@ -1297,7 +1297,7 @@ PERFORMANCE OF THIS SOFTWARE.
   // margin-bottom: 10px;
   padding: 20px 0px;
   box-sizing: border-box;
-  background-image: linear-gradient(to bottom, rgba(0,0,0,0.5) 50%, rgba(0,0,0,1) 100%), url('/bg3.svg');
+  background-image: linear-gradient(to bottom, rgba(0,0,0,0.5) 50%, rgba(0,0,0,1) 100%), url('./bg3.svg');
   background-size: cover;
   background-position: center;
 `,$1=Lt.div`
