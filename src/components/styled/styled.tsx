@@ -182,6 +182,7 @@ export const PlayerRow = styled.div`
   // border-bottom: 1px solid #ddd;
   background: #1E1E1E;
   margin-bottom: 10px;
+  border-radius: 8px;
 `;
 
 export const PlayerInfo = styled.span`
