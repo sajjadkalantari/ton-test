@@ -1,12 +1,13 @@
-import { Badge, BadgeColumn, Card, TaskContainer, TaskIcon, TextColumn } from "./styled/styled";
+import { Badge, BadgeColumn, Card, DescriptionColumn, TaskContainer, TaskIcon, TextColumn } from "./styled/styled";
 import WebApp from '@twa-dev/sdk';
 import { faLock, faCheck, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
 import { postUserAction } from "../apis/api";
-import { TonConnectButton } from "@tonconnect/ui-react";
+import { TonConnectButton, useTonConnectModal } from "@tonconnect/ui-react";
 import { useEffect } from "react";
 import { useTonConnect } from "../hooks/useTonConnect";
+import styled from "styled-components";
 
 enum ActionType {
   None = 0,
@@ -15,7 +16,15 @@ enum ActionType {
   ShareSocialMediaPost = 3,
   ReadContentCompletely = 4
 }
-
+const Overlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4); // Semi-transparent black
+  z-index: 2; // Make sure this is above the content
+`;
 export interface TaskProps {
   id: number;
   isLocked: boolean;
@@ -24,6 +33,8 @@ export interface TaskProps {
   point: number;
   type: ActionType;
   redirectionLink: string | null,
+  icon: string,
+  publishedAt: Date,
   openModal: Function,
   setSelectedTaskId: Function,
   setLoading: Function
@@ -31,7 +42,8 @@ export interface TaskProps {
 
 
 
-export function Task({ isLocked, title, description, point, id, type, redirectionLink, openModal, setSelectedTaskId, setLoading }: TaskProps) {
+export function Task({ isLocked, title, description, point, id, type, redirectionLink, openModal, setSelectedTaskId, setLoading, icon }: TaskProps) {
+  const { state, open, close } = useTonConnectModal();
   const navigate = useNavigate();
   const lockIconColor = isLocked ? '#DDD' : 'lightgreen';
   const lockIcon = isLocked ? faLock : faCheck;
@@ -42,14 +54,16 @@ export function Task({ isLocked, title, description, point, id, type, redirectio
       try {
         setLoading(true);
         if (type === ActionType.ConnectBlockchainWallet) {
-          const sessionWallet = sessionStorage.getItem("wallet");
+          const sessionWallet = sessionStorage.getItem("tg-wallet");
           if (connected && wallet && !sessionWallet) {
             await postUserAction(id, { data: wallet });
-            sessionStorage.setItem("wallet", wallet);
+            sessionStorage.setItem("tg-wallet", wallet);
             window.location.reload(); // This will reload the page and interrupt the flow, consider handling this differently if needed
-          } else if (!connected) {
-            sessionStorage.removeItem("wallet");
           }
+          // else if (!connected && sessionWallet) {
+          //   console.log("removing");
+          //   sessionStorage.removeItem("wallet");
+          // }
         }
       } finally {
         setLoading(false);
@@ -77,7 +91,10 @@ export function Task({ isLocked, title, description, point, id, type, redirectio
           openModal();
           WebApp.openLink(redirectionLink, { try_instant_view: true });
         }
-      } else if (type === ActionType.ConnectBlockchainWallet) {
+      } else if (type === ActionType.ConnectBlockchainWallet && connected == false) {
+
+        open();
+
       }
     } finally {
       setLoading(false);
@@ -89,19 +106,30 @@ export function Task({ isLocked, title, description, point, id, type, redirectio
       <TaskContainer onClick={() => {
         doTheAction();
       }}>
+        {!isLocked && <Overlay />}
+
         <TaskIcon>
-          <FontAwesomeIcon icon={lockIcon} color={lockIconColor} style={{ padding: "8px", backgroundColor: "#404043", borderRadius: "5px" }} />
+          <img width={20} src={icon} alt="" />
         </TaskIcon>
-        <TextColumn>
-          <span style={{ fontWeight: 'bold', fontSize: 'small', padding: "5px 5px 2px 5px" }}>{title}</span>
-          <span style={{ color: "#DDD", fontSize: 'small', padding: "2px 5px 5px 5px" }}>{description}</span>
-          {type === ActionType.ConnectBlockchainWallet && (<TonConnectButton style={{ margin: "16px", fontSize: "small" }} />)}
-        </TextColumn>
+
+        <DescriptionColumn>
+          <span style={{ fontSize: "12px", color: "#5A5A5A", marginBottom: "5px" }}>{title}</span>
+          <span style={{ fontSize: "12px" }}>{isLocked ? description : "Completed"}</span>
+          {/* {type === ActionType.ConnectBlockchainWallet && (<TonConnectButton style={{ marginTop: "16px", fontSize: "small" }} />)} */}
+        </DescriptionColumn>
 
         <BadgeColumn>
-          <Badge style={{ fontFamily: '"Press Start 2P"', fontSize: "x-small" }} >{point}</Badge>
-          <FontAwesomeIcon icon={faChevronRight} color="#DDD" style={{ marginLeft: "10px", fontSize: "xx-small" }} />
+          {
+            isLocked ? (
+              <>
+                <b style={{ color: "#02B1AA", fontSize: "14px", marginRight: "5px" }}>{point}</b> <img width={14} src="./gem.svg" alt="" />
+              </>
+            ) : (
+              <img width={14} src="./tick.svg" alt="" />
+            )
+          }
         </BadgeColumn>
+
       </TaskContainer>
     </Card>
   );

@@ -39,27 +39,27 @@ export function LeaderBoard() {
 
             <TopPlayersContainer>
               <PlayerCard isTopPlayer={false}>
-                <PlayerAvatar src="./second-god2.png" isTopPlayer={false} />
+                <PlayerAvatar src="./2.svg" isTopPlayer={false} />
                 <PlayerInfo>
-                  <div>{res[1].points} Points</div>
-                  <div>{res[1].username}</div>
+                  <div style={{ color: "#02B1AA", fontSize: "14px", fontWeight: "400" }}>{res[1].points} <img width={14} src="./gem.svg" alt="" /></div>
+                  <div style={{ color: "#5B5B5B", marginTop: "5px" }}>{res[1].username}</div>
                 </PlayerInfo>
               </PlayerCard>
 
               <PlayerCard isTopPlayer={true}>
-                <CrownIcon src="./crawn.png" isTopPlayer={true} />
-                <PlayerAvatar src="./first-god.png" isTopPlayer={true} />
+                <CrownIcon src="./crawn.svg" isTopPlayer={true} />
+                <PlayerAvatar src="./1.svg" isTopPlayer={true} />
                 <PlayerInfo>
-                  <div>{res[0].points} Points</div>
-                  <div>{res[0].username}</div>
+                  <div style={{ color: "#02B1AA", fontSize: "14px", fontWeight: "400" }}>{res[0].points} <img width={14} src="./gem.svg" alt="" /></div>
+                  <div style={{ color: "#5B5B5B", marginTop: "5px" }}>{res[0].username}</div>
                 </PlayerInfo>
               </PlayerCard>
 
               <PlayerCard isTopPlayer={false}>
-                <PlayerAvatar src="./third-god2.png" isTopPlayer={false} />
+                <PlayerAvatar src="./3.svg" isTopPlayer={false} />
                 <PlayerInfo>
-                  <div>{res[2].points} Points</div>
-                  <div>{res[2].username}</div>
+                  <div style={{ color: "#02B1AA", fontSize: "14px", fontWeight: "400" }}>{res[2].points} <img width={14} src="./gem.svg" alt="" /></div>
+                  <div style={{ color: "#5B5B5B", marginTop: "5px" }}>{res[2].username}</div>
                 </PlayerInfo>
               </PlayerCard>
             </TopPlayersContainer>
@@ -67,15 +67,32 @@ export function LeaderBoard() {
 
 
           <LeaderboardContainer>
-            {
-              res?.map((item: any, index: number) => (
+            {              
+              res?.map((item: any, index: number) =>  {
+                
+                let backgrounfColor = "#222222";
+                let color = "#FFEEB1";
+                
+                if(index == 0) {
+                  backgrounfColor = "#FFEEB1";
+                  color = "black";
+                }
+                if(index == 1) {
+                  backgrounfColor = "#E2E2E2";
+                  color = "black";
+                }
+                if(index == 2) {
+                  backgrounfColor = "#FFC4B1";
+                  color = "black";
+                }
+                return (
                 <PlayerRow key={index}>
-                  <PlayerInfo>#{index + 1}</PlayerInfo>
-                  <PlayerInfo>{item.username}</PlayerInfo>
-                  <PlayerInfo>{item.points} Points</PlayerInfo>
+                  <PlayerInfo style={{ border: "1px solid #4C4C4C", width: "20px", height: "20px", borderRadius: "8px", color: color, backgroundColor: backgrounfColor, padding: "12px", display: "flex", justifyContent: "center", alignItems: "center" }}>#{index + 1}</PlayerInfo>
+                  <PlayerInfo style={{ textAlign: "start", flexGrow: "8", marginLeft: "20px", fontSize: "14px", fontWeight: "400" }}>{item.username}</PlayerInfo>
+                  <PlayerInfo style={{ color: "#02B1AA", fontSize: "14px", fontWeight: "400" }}>{item.points} <img width={14} src="./gem.svg" alt="" /></PlayerInfo>
                 </PlayerRow>
-              ))
-            }
+              )})
+            } 
           </LeaderboardContainer>
         </AppContainer>
       </StyledApp>

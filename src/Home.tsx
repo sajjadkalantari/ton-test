@@ -68,22 +68,23 @@ function Home() {
 
   const tasks = initData?.actions as TaskProps[] ?? [];
   const username = initData?.user.username;
-  const pointMessage = `@${username} points balance`;
+  const pointMessage = `@${username}`;
   const collectionAddress = "EQCLN0mc5zJwjBAxhwtpQFlPq2nLoA5HR0pWbt5lXObX5oqa";
-  useAsyncInitialize(async () => {
-    if (username && wallet && nftItems.length <= 0) {
-      const res = await getAccountNftItems(wallet, { limit: 1000, collection: collectionAddress });
+  // useAsyncInitialize(async () => {
+  //   if (username && wallet && nftItems.length <= 0) {
+  //     const res = await getAccountNftItems(wallet, { limit: 1000, collection: collectionAddress });
 
-      let items = res.nft_items.map((m: any) => {
-        let url = m.previews.find((preview: any) => preview.resolution === "500x500")?.url;
-        m.metadata.imageUrl = url;
-        return m.metadata;
-      });
+  //     let items = res.nft_items.map((m: any) => {
+  //       let url = m.previews.find((preview: any) => preview.resolution === "500x500")?.url;
+  //       m.metadata.imageUrl = url;
+  //       return m.metadata;
+  //     });
 
-      setNftItems(items);
-    }
-  }, [nftItems, wallet, username]);
-
+  //     setNftItems(items);
+  //   }
+  // }, [nftItems, wallet, username]);
+  const oneWeekAgo = new Date();
+  oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
   return (
     <>
       <Loader loading={loading} />
@@ -95,9 +96,12 @@ function Home() {
             <img src="./roolzHero2.png" style={{ width: "100%", height: "auto", borderRadius: "5px" }} />
 
             <Point description={pointMessage} points={initData?.user.points ?? 0} />
-
+            <span style={{ display: "block", fontWeight: "600", fontSize: "14px", marginTop: "10px" }}>STARTER</span>
             {
-              tasks.map((task, index) => (
+              tasks.filter(item => {
+                const publishedDate = new Date(item.publishedAt);
+                return publishedDate >= oneWeekAgo;
+              }).map((task, index) => (
                 <Task
                   key={index}
                   redirectionLink={task.redirectionLink}
@@ -107,8 +111,34 @@ function Home() {
                   description={task.description}
                   point={task.point}
                   title={task.title}
+                  icon={task.icon}
                   openModal={openModal}
                   setSelectedTaskId={setSelectedTaskId}
+                  publishedAt={task.publishedAt}
+                  setLoading={setLoading}
+                />
+              ))
+            }
+
+            <span style={{ display: "block", fontWeight: "600", fontSize: "14px", marginTop: "10px" }}>LEAVING SOON</span>
+            {
+              tasks.filter(item => {
+                const publishedDate = new Date(item.publishedAt);
+                return publishedDate < oneWeekAgo;
+              }).map((task, index) => (
+                <Task
+                  key={index}
+                  redirectionLink={task.redirectionLink}
+                  type={task.type}
+                  id={task.id}
+                  isLocked={initData?.user.userActions.some((item: { actionId: number }) => item.actionId === task.id) ? false : true}
+                  description={task.description}
+                  point={task.point}
+                  title={task.title}
+                  icon={task.icon}
+                  openModal={openModal}
+                  setSelectedTaskId={setSelectedTaskId}
+                  publishedAt={task.publishedAt}
                   setLoading={setLoading}
                 />
               ))

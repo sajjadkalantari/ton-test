@@ -5,14 +5,14 @@ import styled from 'styled-components';
 
 const MobileMenuContainer = styled.div`
     position: fixed;
-    bottom: 20px;
+    bottom: 10px;
     border-radius: 8px;
     border: 1px solid;
     border-image-source: linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.0114) 100%);
     left: 50%;
     transform: translate(-50%, 0%);
     width: 79%;
-    background-color: #131313;
+    background-color: #2D2D2D;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -69,7 +69,7 @@ export function MobileMenue({ activeItem, onItemClick }: MenueProps) {
       <MenuIcon active={activeItem === 'home'} onClick={() => { onItemClick('home'); navigate('/'); }}>
         <MenuLabel active={activeItem === 'home'}>
           <img style={{ width: "24px", margin: "auto" }} src={activeItem === 'home' ? "./Bolt-active.svg" : "./Bolt.svg"} alt="" />
-          <span style={{ marginTop: "5px", fontSize: "12px" }}>Home</span>
+          <span style={{ marginTop: "5px", fontSize: "12px" }}>Tasks</span>
         </MenuLabel>
       </MenuIcon>
       <MenuIcon active={activeItem === 'leaderboard'} onClick={() => { onItemClick('leaderboard'); navigate('/leader'); }}>
