@@ -88,6 +88,7 @@ export const PointContainer = styled.div`
   padding: 8px 12px;
   border: 1px solid #02B1AA;
   border-radius: 8px;
+  background: #FFFFFF05;
 `;
 
 export const DescriptionColumn = styled.div`
@@ -103,8 +104,12 @@ export const TaskContainer = styled.div`
   padding: 12px;
   //border: 1px solid #404043;
   border-radius: 8px;
-  background-color: #2D2D2D;
+  background: #FFFFFF12;
   position: relative;
+  border: 1px solid;
+  border-image-source: linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+
+
 `;
 export const PointIcon = styled.div`
   flex: 1;
@@ -116,11 +121,13 @@ export const TaskIcon = styled.div`
   display: flex;
   width: 48px;
   height: 48px;
-  border: 1px solid #8A8A8A;
   border-radius: 8px;
   //padding: 12px;
   flex: 1;
   text-align: center;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.015) 100%);
+  border: 1px solid;
+  border-image-source: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.017) 100%);
 `;
 
 export const TextColumn = styled.div`
@@ -180,7 +187,9 @@ export const PlayerRow = styled.div`
   align-items: center;
   padding: 10px 16px 10px 10px;
   // border-bottom: 1px solid #ddd;
-  background: #1E1E1E;
+  background: #FFFFFF12;
+  border: 1px solid;
+  border-image-source: linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
   margin-bottom: 10px;
   border-radius: 8px;
 `;
@@ -211,11 +220,12 @@ export const PlayerCard = styled.div`
   align-items: center;
   width: ${(props: { isTopPlayer: boolean }) => (props.isTopPlayer ? '150px' : '120px')};
   padding: ${({ isTopPlayer }) => (isTopPlayer ? '8px' : '10px')};
-  background: #1E1E1E;
+  background: #FFFFFF12;
   // border: 1px solid #404043;
   border: 1px solid;
   border-image-source: linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
   border-radius: 8px;
+  backdrop-filter: blur(3px);
 `;
 
 export const PlayerAvatar = styled.img`

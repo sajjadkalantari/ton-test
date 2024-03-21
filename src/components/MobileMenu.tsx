@@ -12,7 +12,7 @@ const MobileMenuContainer = styled.div`
     left: 50%;
     transform: translate(-50%, 0%);
     width: 79%;
-    background-color: #2D2D2D;
+    background: #131313;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;

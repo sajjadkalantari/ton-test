@@ -42,7 +42,7 @@ export function LeaderBoard() {
                 <PlayerAvatar src="./2.svg" isTopPlayer={false} />
                 <PlayerInfo>
                   <div style={{ color: "#02B1AA", fontSize: "14px", fontWeight: "400" }}>{res[1].points} <img width={14} src="./gem.svg" alt="" /></div>
-                  <div style={{ color: "#5B5B5B", marginTop: "5px" }}>{res[1].username}</div>
+                  <div style={{ color: "#FFFFFF4D", marginTop: "5px" }}>{res[1].username}</div>
                 </PlayerInfo>
               </PlayerCard>
 
@@ -51,7 +51,7 @@ export function LeaderBoard() {
                 <PlayerAvatar src="./1.svg" isTopPlayer={true} />
                 <PlayerInfo>
                   <div style={{ color: "#02B1AA", fontSize: "14px", fontWeight: "400" }}>{res[0].points} <img width={14} src="./gem.svg" alt="" /></div>
-                  <div style={{ color: "#5B5B5B", marginTop: "5px" }}>{res[0].username}</div>
+                  <div style={{ color: "#FFFFFF4D", marginTop: "5px" }}>{res[0].username}</div>
                 </PlayerInfo>
               </PlayerCard>
 
@@ -59,7 +59,7 @@ export function LeaderBoard() {
                 <PlayerAvatar src="./3.svg" isTopPlayer={false} />
                 <PlayerInfo>
                   <div style={{ color: "#02B1AA", fontSize: "14px", fontWeight: "400" }}>{res[2].points} <img width={14} src="./gem.svg" alt="" /></div>
-                  <div style={{ color: "#5B5B5B", marginTop: "5px" }}>{res[2].username}</div>
+                  <div style={{ color: "#FFFFFF4D", marginTop: "5px" }}>{res[2].username}</div>
                 </PlayerInfo>
               </PlayerCard>
             </TopPlayersContainer>

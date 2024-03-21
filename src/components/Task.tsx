@@ -22,7 +22,7 @@ const Overlay = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.4); // Semi-transparent black
+  background-color: rgba(0, 0, 0, 0.3); // Semi-transparent black
   z-index: 2; // Make sure this is above the content
 `;
 export interface TaskProps {
@@ -113,8 +113,8 @@ export function Task({ isLocked, title, description, point, id, type, redirectio
         </TaskIcon>
 
         <DescriptionColumn>
-          <span style={{ fontSize: "12px", color: "#5A5A5A", marginBottom: "5px" }}>{title}</span>
-          <span style={{ fontSize: "12px" }}>{isLocked ? description : "Completed"}</span>
+          <span style={{ fontSize: "12px", color: isLocked ? "#939393" : "#FFFFFF4D", marginBottom: "5px" }}>{title}</span>
+          <span style={{ fontSize: "12px", color: isLocked ? "#FFF" : "#FFFFFF4D" }}>{isLocked ? description : "Completed"}</span>
           {/* {type === ActionType.ConnectBlockchainWallet && (<TonConnectButton style={{ marginTop: "16px", fontSize: "small" }} />)} */}
         </DescriptionColumn>
 

@@ -23,7 +23,7 @@ export function Point({ description, points }: PointProps) {
           <img width={48} src="./2.svg" alt="point" />
         </PointIcon>
         <DescriptionColumn>
-          <span style={{ fontSize: "12px", color: "#5A5A5A", marginBottom: "5px" }}>Point balance</span>
+          <span style={{ fontSize: "12px", color: "#939393", marginBottom: "5px" }}>Point balance</span>
           <span style={{ fontSize: "14px" }}>{description}</span>
         </DescriptionColumn>
         <BadgeColumn>
