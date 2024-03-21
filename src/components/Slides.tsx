@@ -1,18 +1,29 @@
-import { useState } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-import { useNavigate, useParams } from 'react-router-dom';
-import { Pagination, Navigation } from 'swiper/modules';
-import { AppContainer, Button, StyledApp } from './styled/styled';
 import WebApp from '@twa-dev/sdk';
-import { useAsyncInitialize } from '../hooks/useAsyncInitialize';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import { Navigation, Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import { getAction, postUserAction } from '../apis/api';
+import { useAsyncInitialize } from '../hooks/useAsyncInitialize';
+import { setMenuVisibility } from '../states/actions';
+import { AppContainer, Button, StyledApp } from './styled/styled';
 
 export default function Slides() {
+  const dispatch = useDispatch();
 
   const { id } = useParams();
+
+  useEffect(() => {
+    dispatch(setMenuVisibility(false));
+    return () => {
+      dispatch(setMenuVisibility(true));      
+    };
+  }, []);
+
 
   const navigate = useNavigate();
   WebApp.BackButton.show();

@@ -1,5 +1,4 @@
-import { faLock, faHome, faTrophy } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -57,9 +56,11 @@ export interface MenueProps {
 
 export function MobileMenue({ activeItem, onItemClick }: MenueProps) {
   const navigate = useNavigate();
+  const showMenu = useSelector((state: any) => state.showMenu);
 
   return (
-    <MobileMenuContainer>
+
+    <MobileMenuContainer style={{ visibility: showMenu ? "visible" : "collapse" }}>
       <MenuIcon active={activeItem === 'games'} onClick={() => { onItemClick('games'); navigate('/games'); }}>
         <MenuLabel active={activeItem === 'games'}>
           <img style={{ width: "24px", margin: "auto" }} src={activeItem === 'games' ? "./Gamepad-active.svg" : "./Gamepad.svg"} alt="" />
