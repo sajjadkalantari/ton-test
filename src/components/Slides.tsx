@@ -36,10 +36,14 @@ export default function Slides() {
 
   const swiperRef = useRef(null);
   const goToNextSlide = () => {
+    console.log("goToNextSlide")
     if (swiperRef.current && swiperRef.current.swiper) {
+      console.log("goToNextSlide2")
       setIsButtonDisabled(true);
       setTimeLeft(5);
+      swiperRef.current.swiper.allowSlideNext = true;
       swiperRef.current.swiper.slideNext();
+      swiperRef.current.swiper.allowSlideNext = false;
     }
   };
 
@@ -56,12 +60,6 @@ export default function Slides() {
 
   // State to control the button's disabled property
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-  const progressCircle = useRef(null);
-  const progressContent = useRef(null);
-  const onAutoplayTimeLeft = (s, time, progress) => {
-    progressCircle.current.style.setProperty('--progress', 1 - progress);
-    progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
-  };
   useEffect(() => {
     // Only set up the interval if timeLeft is greater than 0
     if (timeLeft > 0) {
@@ -77,15 +75,20 @@ export default function Slides() {
     console.log("timeLeft", timeLeft)
     // progressCircle.current.style.setProperty('--progress', 1 - (timeLeft / 5));
   }, [timeLeft]);
-
+  const pagination = {
+    clickable: false,
+    renderBullet: function (index: any, className: any) {
+      return '<span class=' + className + ' style="min-width: 100px;background: #FFEEB1;height: 2px;border-radius: 0;"></span>';
+    },
+  };
   return (
     <StyledApp>
       <AppContainer>
         <div className="autoplay-progress" slot="container-end">
-          <svg viewBox="0 0 48 48" ref={progressCircle} style={{ '--progress': 1 - (timeLeft / 5) }}>
+          <svg viewBox="0 0 48 48" style={{ '--progress': 1 - (timeLeft / 5) }}>
             <circle cx="24" cy="24" r="20"></circle>
           </svg>
-          <span ref={progressContent}>{timeLeft}s</span>
+          <span>{timeLeft}s</span>
         </div>
         <FontAwesomeIcon style={{ fontSize: 20, zIndex: 999, position: "absolute", top: "30px", right: "16px" }}
           onClick={() => { navigate("/") }} icon={faClose}>
@@ -95,9 +98,7 @@ export default function Slides() {
           ref={swiperRef}
           allowSlidePrev={false}
           allowTouchMove={false}
-          pagination={{
-            type: 'progressbar',
-          }}
+          pagination={pagination}
           modules={[Pagination, Navigation]}
         >
 
@@ -116,12 +117,12 @@ export default function Slides() {
                   </div>
 
                   {index < totalSlides - 1 && (
-                    <Button style={{ width: "100%" }} disabled={isButtonDisabled} onClick={goToNextSlide}>
+                    <Button style={{ zIndex: 9999, width: "100%" }} disabled={isButtonDisabled} onClick={goToNextSlide}>
                       NEXT
                     </Button>
                   )}
                   {index === totalSlides - 1 && (
-                    <Button style={{ width: "100%" }} disabled={isButtonDisabled} onClick={async () => {
+                    <Button style={{ zIndex: 9999, width: "100%" }} disabled={isButtonDisabled} onClick={async () => {
                       await postUserAction(Number(id), { data: "" });
                       navigate(-1);
                     }}>DONE</Button>

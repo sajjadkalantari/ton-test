@@ -28,7 +28,7 @@ export const FlexBoxCol = styled.div`
 
 export const Button = styled.button`
   background-color: ${(props) =>
-    props.disabled ? "#6e6e6e" : "var(--tg-theme-button-color)"};
+    props.disabled ? "#6e6e6e" : "#02B1AA"};
   border: 0;
   border-radius: 8px;
   padding: 10px 20px;
