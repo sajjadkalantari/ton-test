@@ -73,19 +73,7 @@ function Home() {
   const username = initData?.user.username;
   const pointMessage = `@${username}`;
   const collectionAddress = "EQCLN0mc5zJwjBAxhwtpQFlPq2nLoA5HR0pWbt5lXObX5oqa";
-  // useAsyncInitialize(async () => {
-  //   if (username && wallet && nftItems.length <= 0) {
-  //     const res = await getAccountNftItems(wallet, { limit: 1000, collection: collectionAddress });
 
-  //     let items = res.nft_items.map((m: any) => {
-  //       let url = m.previews.find((preview: any) => preview.resolution === "500x500")?.url;
-  //       m.metadata.imageUrl = url;
-  //       return m.metadata;
-  //     });
-
-  //     setNftItems(items);
-  //   }
-  // }, [nftItems, wallet, username]);
   const oneWeekAgo = new Date();
   oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
   return (
