@@ -5,9 +5,7 @@ import App from "./App";
 import "./index.css";
 import { Provider } from "react-redux";
 import store from "./states/store";
-// this manifest is used temporarily for development purposes
-const manifestUrl =
-  "https://sajjadkalantari.github.io/ton-test/tonconnect-manifest.json";
+const manifestUrl = "https://sajjadkalantari.github.io/ton-test/tonconnect-manifest.json";
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnWindowFocus: false } },
