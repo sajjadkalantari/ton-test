@@ -11,6 +11,8 @@ import { AppContainer, FlexBoxCol, StyledApp } from "./components/styled/styled"
 import { useAsyncInitialize } from "./hooks/useAsyncInitialize";
 import { useTonConnect } from "./hooks/useTonConnect";
 import Loader from "./components/Loader";
+import { useDispatch } from "react-redux";
+import { setUser } from "./states/actions";
 
 
 
@@ -60,6 +62,7 @@ function Home() {
       setLoading(true);
       const response = await getAppUserData(1);
       setInitData(response);
+      useDispatch()(setUser(response.user));
       return response;
     } finally {
       setLoading(false);

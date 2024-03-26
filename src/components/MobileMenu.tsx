@@ -67,6 +67,12 @@ export function MobileMenue({ activeItem, onItemClick }: MenueProps) {
           <span style={{ marginTop: "5px", fontSize: "12px" }}>Games</span>
         </MenuLabel>
       </MenuIcon>
+      <MenuIcon active={activeItem === 'staking'} onClick={() => { onItemClick('staking'); navigate('/staking'); }}>
+        <MenuLabel active={activeItem === 'staking'}>
+          <img style={{ width: "24px", margin: "auto" }} src={activeItem === 'staking' ? "./staking-active.svg" : "./staking.svg"} alt="" />
+          <span style={{ marginTop: "5px", fontSize: "12px" }}>NFT staking</span>
+        </MenuLabel>
+      </MenuIcon>
       <MenuIcon active={activeItem === 'home'} onClick={() => { onItemClick('home'); navigate('/'); }}>
         <MenuLabel active={activeItem === 'home'}>
           <img style={{ width: "24px", margin: "auto" }} src={activeItem === 'home' ? "./Bolt-active.svg" : "./Bolt.svg"} alt="" />

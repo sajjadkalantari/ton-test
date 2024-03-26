@@ -1,20 +1,19 @@
-import { Badge, BadgeColumn, Card, DescriptionColumn, TaskContainer, TaskIcon, TextColumn } from "./styled/styled";
+import { useTonConnectModal } from "@tonconnect/ui-react";
 import WebApp from '@twa-dev/sdk';
-import { faLock, faCheck, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useNavigate } from 'react-router-dom';
-import { postUserAction } from "../apis/api";
-import { TonConnectButton, useTonConnectModal } from "@tonconnect/ui-react";
 import { useEffect } from "react";
-import { useTonConnect } from "../hooks/useTonConnect";
+import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
+import { postUserAction } from "../apis/api";
+import { useTonConnect } from "../hooks/useTonConnect";
+import { BadgeColumn, Card, DescriptionColumn, TaskContainer, TaskIcon } from "./styled/styled";
 
 enum ActionType {
   None = 0,
   ConnectBlockchainWallet = 1,
   FollowOnSocialMedia = 2,
   ShareSocialMediaPost = 3,
-  ReadContentCompletely = 4
+  ReadContentCompletely = 4,
+  InviteFriends = 5
 }
 const Overlay = styled.div`
   position: absolute;
@@ -43,10 +42,8 @@ export interface TaskProps {
 
 
 export function Task({ isLocked, title, description, point, id, type, redirectionLink, openModal, setSelectedTaskId, setLoading, icon }: TaskProps) {
-  const { state, open, close } = useTonConnectModal();
+  const { open } = useTonConnectModal();
   const navigate = useNavigate();
-  const lockIconColor = isLocked ? '#DDD' : 'lightgreen';
-  const lockIcon = isLocked ? faLock : faCheck;
   const { connected, wallet } = useTonConnect();
   useEffect(() => {
     // Define an async function inside the useEffect
@@ -86,6 +83,8 @@ export function Task({ isLocked, title, description, point, id, type, redirectio
         }
       } else if (type === ActionType.ReadContentCompletely) {
         navigate(`/story/${id}`);
+      } else if (type === ActionType.InviteFriends) {
+        navigate(`/referrals`);
       } else if (type === ActionType.ShareSocialMediaPost) {
         if (redirectionLink) {
           openModal();
@@ -113,8 +112,8 @@ export function Task({ isLocked, title, description, point, id, type, redirectio
         </TaskIcon>
 
         <DescriptionColumn>
-          <span style={{ fontSize: "12px", color: isLocked ? "#939393" : "#FFFFFF4D", marginBottom: "5px" }}>{title}</span>
-          <span style={{ fontSize: "12px", color: isLocked ? "#FFF" : "#FFFFFF4D" }}>{isLocked ? description : "Completed"}</span>
+          <span style={{ fontSize: "12px", color: isLocked ? "#FFF" : "#FFFFFF4D" }}>{title}</span>
+          {/* <span style={{ display: isLocked ? "none" : "block", fontSize: "12px", color: isLocked ? "#FFF" : "#FFFFFF4D" }}>{isLocked ? description : "Completed"}</span> */}
           {/* {type === ActionType.ConnectBlockchainWallet && (<TonConnectButton style={{ marginTop: "16px", fontSize: "small" }} />)} */}
         </DescriptionColumn>
 

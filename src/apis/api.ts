@@ -2,6 +2,7 @@ import axios from 'axios';
 
 //taskbot api
 const API_BASE_URL = 'https://taskbot-api.roolzanime.com';
+//const API_BASE_URL = 'http://localhost:5120/';
 const api = axios.create({
     baseURL: API_BASE_URL,
 });
@@ -47,5 +48,41 @@ export const getLeaderBoard = async () => {
     }
 };
 
+export const getUserReferrals = async () => {
+    try {
+        const response = await api.get(`app/referrals`);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const getUserStakingInfo = async () => {
+    try {
+        const response = await api.get(`app/staking-info`);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+
+export const postStakingNFTs = async (data: { isStaking: boolean }) => {
+    try {
+        const response = await api.post(`app/stake-nfts`, data);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const postClaimStakedPoints = async () => {
+    try {
+        const response = await api.post(`app/claim-staked`);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
 
 
