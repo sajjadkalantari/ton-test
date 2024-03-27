@@ -21,25 +21,25 @@ function App() {
   };
   return (
 
+    <HashRouter>
+      <Routes>
+        <Route path="/*" element={<Home />} />
+        <Route path="/games" element={<Games />} />
+        <Route path="/referrals" element={<Referrals />} />
+        <Route path="/staking" element={<Staking />} />
+        <Route path="/leader" element={<LeaderBoard />} />
+        <Route path="/story/:id" element={<Slides />} />
+      </Routes>
+      <div style={{ marginTop: "80px" }}></div>
+      <MobileMenue activeItem={activeItem} onItemClick={handleItemClick} />
+    </HashRouter>
+    // <>
+    //   {!videoEnded ? (
+    //     <WelcomeVideo onVideoEnd={handleVideoEnd} />
+    //   ) : (
 
-    <>
-      {!videoEnded ? (
-        <WelcomeVideo onVideoEnd={handleVideoEnd} />
-      ) : (
-        <HashRouter>
-          <Routes>
-            <Route path="/*" element={<Home />} />
-            <Route path="/games" element={<Games />} />
-            <Route path="/referrals" element={<Referrals />} />
-            <Route path="/staking" element={<Staking />} />
-            <Route path="/leader" element={<LeaderBoard />} />
-            <Route path="/story/:id" element={<Slides />} />
-          </Routes>
-          <div style={{ marginTop: "80px" }}></div>
-          <MobileMenue activeItem={activeItem} onItemClick={handleItemClick} />
-        </HashRouter>
-      )}
-    </>
+    //   )}
+    // </>
   );
 }
 
