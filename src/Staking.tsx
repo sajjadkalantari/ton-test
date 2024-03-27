@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { getUserStakingInfo, postClaimStakedPoints, postStakingNFTs } from './apis/api';
+import { getUserStakingInfo, postClaimStakedPoints, postConnectWallet, postDisconnectWallet, postStakingNFTs } from './apis/api';
 import { getAccountNftItems } from './apis/tonApi';
 import Loader from './components/Loader';
 import ConfirmModal from './components/Modal/ConfirmModal';
@@ -105,15 +105,11 @@ export function Staking() {
   }
 
 
-  //  const user = useSelector((state: any) => state.user)
   const [loading, setLoading] = useState(false);
   const [stakingInfo, setStakingInfo] = useState<StakingInfo>();
 
-  //  const [isStaking, setIsStaking] = useState(false);
   const [nftItems, setNftItems] = useState<NftItem[]>([]);
-  let { wallet } = useTonConnect();
-  //const [walletAddress, setWalletAddress] = useState<string | null>(wallet);
-
+  let { wallet, connected } = useTonConnect();
   const collectionAddress = "EQCLN0mc5zJwjBAxhwtpQFlPq2nLoA5HR0pWbt5lXObX5oqa";
   useAsyncInitialize(async () => {
     if (wallet && nftItems.length <= 0) {
@@ -154,7 +150,6 @@ export function Staking() {
 
   const handleSubmit = async () => {
     try {
-      console.log(modalAction)
       setLoading(true);
       if (modalAction == "claim") {
         const response = await postClaimStakedPoints();
@@ -164,7 +159,6 @@ export function Staking() {
         await postStakingNFTs({ isStaking: true });
         const response = await postClaimStakedPoints();
         setStakingInfo(response);
-        // setIsStaking(true);
       }
     }
     finally {
@@ -172,6 +166,17 @@ export function Staking() {
     }
 
   };
+
+  useAsyncInitialize(async () => {
+    const walletStorageInfo = localStorage.getItem('ton-connect-ui_last-selected-wallet-info');
+    if (connected && wallet && walletStorageInfo) {
+      const response = await postConnectWallet({ WaleltAddress: wallet });
+      setStakingInfo(response);
+    } else if (!connected && !walletStorageInfo) {
+      await postDisconnectWallet();
+    }
+  }, [connected]);
+
   return (
     <>
       <ConfirmModal isOpen={isModalOpen} onClose={closeModal} onSubmit={handleSubmit} />
@@ -206,8 +211,8 @@ export function Staking() {
             </Section>
           </div>
 
-          <TonConnectButton  style={{ marginTop: "16px", fontSize: "small", background: "red !important" }} />
-          
+          <TonConnectButton style={{ marginTop: "16px", fontSize: "small", background: "red !important" }} />
+
 
           {/* <button onClick={() => {
             open();

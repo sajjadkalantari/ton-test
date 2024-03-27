@@ -85,4 +85,22 @@ export const postClaimStakedPoints = async () => {
     }
 };
 
+export const postConnectWallet = async (data: { WaleltAddress: string | null }) => {
+    try {
+        const response = await api.post(`app/connect-wallet`, data);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const postDisconnectWallet = async () => {
+    try {
+        const response = await api.post(`app/disconnect-wallet`);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
 
