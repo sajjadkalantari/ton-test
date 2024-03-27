@@ -48,3 +48,20 @@ body {
   top: 0 !important;
   height: fit-content;
 }
+
+#ton-connect-button button {
+  font-family: "Inter", sans-serif !important;
+  border: 1px solid #02B1AA !important; 
+  background: transparent !important;
+  color: white !important;
+  border-radius: 8px !important;
+  text-align: center !important;
+  padding: 12px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-content: center !important;
+}
+
+#ton-connect-button button div[data-tc-text] {
+  color: white;
+}

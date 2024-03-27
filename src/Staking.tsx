@@ -1,5 +1,5 @@
-import { useTonConnectModal } from "@tonconnect/ui-react";
-import { useState } from 'react';
+import { TonConnectButton, useTonConnectModal } from "@tonconnect/ui-react";
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -105,11 +105,11 @@ export function Staking() {
   }
 
 
-//  const user = useSelector((state: any) => state.user)
+  //  const user = useSelector((state: any) => state.user)
   const [loading, setLoading] = useState(false);
   const [stakingInfo, setStakingInfo] = useState<StakingInfo>();
-  
-//  const [isStaking, setIsStaking] = useState(false);
+
+  //  const [isStaking, setIsStaking] = useState(false);
   const [nftItems, setNftItems] = useState<NftItem[]>([]);
   let { wallet } = useTonConnect();
   //const [walletAddress, setWalletAddress] = useState<string | null>(wallet);
@@ -134,7 +134,7 @@ export function Staking() {
       setLoading(true);
       const response = await getUserStakingInfo();
       setStakingInfo(response);
-     // setIsStaking(response?.isStaking ?? false);
+      // setIsStaking(response?.isStaking ?? false);
       return response;
     } finally {
       setLoading(false);
@@ -164,7 +164,7 @@ export function Staking() {
         await postStakingNFTs({ isStaking: true });
         const response = await postClaimStakedPoints();
         setStakingInfo(response);
-       // setIsStaking(true);
+        // setIsStaking(true);
       }
     }
     finally {
@@ -206,16 +206,16 @@ export function Staking() {
             </Section>
           </div>
 
-          {/* <TonConnectButton style={{ marginTop: "16px", fontSize: "small", background: "red !important" }} /> */}
+          <TonConnectButton  style={{ marginTop: "16px", fontSize: "small", background: "red !important" }} />
+          
 
-
-          <button onClick={() => {
+          {/* <button onClick={() => {
             open();
 
           }} style={{ border: "1px solid #02B1AA", background: "transparent", color: "white", borderRadius: 8, textAlign: "center", padding: 12, display: "flex", justifyContent: "center", alignContent: "center" }}>
             <img style={{ marginRight: 5 }} src="./wallet2.svg" alt="" />
             <span style={{ margin: "auto", alignItems: "center" }}>{wallet ? formatString(wallet) : "CONNECT"}</span>
-          </button>
+          </button> */}
         </StakingPointsContainer>
 
         <StakingTitle>
@@ -269,9 +269,14 @@ export function Staking() {
         }}>
           {
             (!nftItems || nftItems.length <= 0) && (
-              <p style={{ textAlign: "center" }}>
-                You don't have an NFT, make a vollet connection or buy an NFT
-              </p>
+              <div>
+                <p style={{ textAlign: "center", display: "block" }}>
+                  Connect your wallet (top right) & Stake your RoOLZ NFT’s.
+                </p>
+                <p style={{ textAlign: "center", display: "block" }}>
+                  Claim your points Weekly.
+                </p>
+              </div>
             )
           }
 
